@@ -1,18 +1,14 @@
 #!/usr/bin/env python3
-"""Legacy entry point: print danger-level summaries from output_*.csv.
-
-Prefer: python climate_modeler.py --temp N
-"""
+"""Legacy entry point: print danger-level summaries from output_*.csv."""
 
 from __future__ import annotations
 
 import argparse
-import os
 from pathlib import Path
 
 import pandas as pd
 
-from climate_modeler import SHEETS, print_summary
+from climate_modeler import SHEETS, print_summary, resolve_data_dir
 
 
 def main() -> None:
@@ -21,7 +17,7 @@ def main() -> None:
         "--data-dir",
         type=Path,
         default=None,
-        help="Directory with output_*.csv (default: repo root or $DATA_DIR).",
+        help="Directory with output_*.csv (default: data/ or $DATA_DIR).",
     )
     parser.add_argument(
         "--keep-output",
@@ -30,13 +26,7 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    if args.data_dir is not None:
-        data_dir = args.data_dir.resolve()
-    elif os.environ.get("DATA_DIR"):
-        data_dir = Path(os.environ["DATA_DIR"]).resolve()
-    else:
-        data_dir = Path(__file__).resolve().parent
-
+    data_dir = resolve_data_dir(args.data_dir)
     frames = {}
     for key, (_infile, outfile, nrows) in SHEETS.items():
         path = data_dir / outfile
@@ -45,7 +35,7 @@ def main() -> None:
                 f"Missing {path}. Run sheet_analyzer.py or climate_modeler.py first."
             )
         df = pd.read_csv(path)
-        frames[key] = df[:nrows]
+        frames[key] = df[:nrows] if nrows is not None else df
 
     print_summary(frames)
 

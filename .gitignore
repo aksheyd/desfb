@@ -410,3 +410,6 @@ __pycache__/
 
 # Generated danger-level outputs
 output_*.csv
+
+# Refresh metadata (regenerated)
+data/refresh_meta.json

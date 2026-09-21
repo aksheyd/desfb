@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Don Edwards SF Bay NWR climate modeler — toy danger-level heuristic CLI.
 
-Reads bundled species CSVs, applies a simple temperature-delta heuristic to a
-per-species Danger Level score, and prints a summary. Not a scientific model.
+Reads species CSVs (default: data/), applies a simple temperature-delta heuristic
+to a per-species Danger Level score, and prints a summary. Not a scientific model.
 """
 
 from __future__ import annotations
@@ -16,18 +16,26 @@ from pathlib import Path
 import pandas as pd
 
 REPO_ROOT = Path(__file__).resolve().parent
-DEFAULT_DATA_DIR = REPO_ROOT
+DEFAULT_DATA_DIR = REPO_ROOT / "data"
 AVG_TEMP_F = 60  # baseline used by the original EcoData heuristic
 
+# filename, output name, optional max rows (None = all)
 SHEETS = {
-    "birds": ("BirdSheet.csv", "output_birds.csv", 270),
-    "mammals": ("MammalsSheet.csv", "output_mammals.csv", 30),
+    "birds": ("BirdSheet.csv", "output_birds.csv", None),
+    "mammals": ("MammalsSheet.csv", "output_mammals.csv", None),
     "amphibian_reptiles": (
         "AmphibianReptilesSheet.csv",
         "output_amphibianreptiles.csv",
-        14,
+        None,
     ),
-    "fish": ("FishsSheet.csv", "output_fishs.csv", 58),
+    "fish": ("FishsSheet.csv", "output_fishs.csv", None),
+}
+
+TAXON_LABELS = {
+    "birds": "Birds",
+    "mammals": "Mammals",
+    "amphibian_reptiles": "Amphibians/Reptiles",
+    "fish": "Fish",
 }
 
 
@@ -91,14 +99,33 @@ def danger_level(row: pd.Series, change_val: int) -> int:
     return return_val
 
 
+def resolve_data_dir(explicit: Path | None = None) -> Path:
+    if explicit is not None:
+        return explicit.resolve()
+    env = os.environ.get("DATA_DIR")
+    if env:
+        return Path(env).resolve()
+    if DEFAULT_DATA_DIR.is_dir():
+        return DEFAULT_DATA_DIR
+    return REPO_ROOT
+
+
 def load_and_score(data_dir: Path, change_val: int) -> dict[str, pd.DataFrame]:
     frames: dict[str, pd.DataFrame] = {}
     for key, (infile, _outfile, nrows) in SHEETS.items():
         path = data_dir / infile
         if not path.is_file():
-            raise FileNotFoundError(f"Missing input CSV: {path}")
+            # Fall back to repo-root historical copies
+            alt = REPO_ROOT / infile
+            if alt.is_file():
+                path = alt
+            else:
+                raise FileNotFoundError(f"Missing input CSV: {path}")
         df = pd.read_csv(path)
-        df = df[:nrows].copy()
+        if nrows is not None:
+            df = df[:nrows].copy()
+        else:
+            df = df.copy()
         for col in ("Occurrence", "Classification", "Federal", "State"):
             if col in df.columns:
                 df[col] = df[col].astype(str)
@@ -116,17 +143,15 @@ def write_outputs(frames: dict[str, pd.DataFrame], out_dir: Path) -> None:
 
 
 def print_summary(frames: dict[str, pd.DataFrame]) -> None:
-    labels = {
-        "birds": "Birds",
-        "mammals": "Mammals",
-        "amphibian_reptiles": "Amphibians/Reptiles",
-        "fish": "Fish",
-    }
-    for key, label in labels.items():
+    for key, label in TAXON_LABELS.items():
         df = frames[key]
         print(f"{label}: ")
         print("=" * max(len(label) + 1, 6))
-        cols = [c for c in ("Common Name", "Scientific Name", "Danger Level") if c in df.columns]
+        cols = [
+            c
+            for c in ("Common Name", "Scientific Name", "Danger Level")
+            if c in df.columns
+        ]
         print(df[cols].head())
         print(f"Max Danger Level for {label} = ", df["Danger Level"].max())
         print(f"Min Danger Level for {label} = ", df["Danger Level"].min())
@@ -136,6 +161,40 @@ def print_summary(frames: dict[str, pd.DataFrame]) -> None:
         )
         print(f"Amount of {label} = ", len(df))
         print()
+
+
+def summarize(frames: dict[str, pd.DataFrame], temp: int, change_val: int) -> dict:
+    """JSON-friendly summary for the dashboard."""
+    groups = []
+    extinct = 0
+    for key, label in TAXON_LABELS.items():
+        df = frames[key]
+        n_ext = int((df["Danger Level"] >= 100).sum())
+        extinct += n_ext
+        groups.append(
+            {
+                "key": key,
+                "label": label,
+                "count": int(len(df)),
+                "avg_danger": round(float(df["Danger Level"].mean()), 2)
+                if len(df)
+                else 0.0,
+                "max_danger": int(df["Danger Level"].max()) if len(df) else 0,
+                "min_danger": int(df["Danger Level"].min()) if len(df) else 0,
+                "extinctish": n_ext,
+            }
+        )
+    return {
+        "temp_f": temp,
+        "baseline_f": AVG_TEMP_F,
+        "change_val": change_val,
+        "extinctish_total": extinct,
+        "groups": groups,
+        "note": (
+            "Danger Level is a toy EcoData heuristic, not a scientific "
+            "extinction model."
+        ),
+    }
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
@@ -156,7 +215,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         "--data-dir",
         type=Path,
         default=None,
-        help="Directory containing the species CSVs (default: repo root, or $DATA_DIR).",
+        help="Directory containing the species CSVs (default: data/, or $DATA_DIR).",
     )
     parser.add_argument(
         "--out-dir",
@@ -172,22 +231,13 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     return parser.parse_args(argv)
 
 
-def resolve_data_dir(args: argparse.Namespace) -> Path:
-    if args.data_dir is not None:
-        return args.data_dir.resolve()
-    env = os.environ.get("DATA_DIR")
-    if env:
-        return Path(env).resolve()
-    return DEFAULT_DATA_DIR
-
-
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     if args.temp < 0 or args.temp > 99:
         print("Error: temperature must be between 0 and 99 °F.", file=sys.stderr)
         return 2
 
-    data_dir = resolve_data_dir(args)
+    data_dir = resolve_data_dir(args.data_dir)
     out_dir = args.out_dir.resolve() if args.out_dir else data_dir
     change_val = temperature_change_value(args.temp)
 
