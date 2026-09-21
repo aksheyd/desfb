@@ -402,3 +402,18 @@ __pycache__/
 
 # OpenCover UI analysis results
 OpenCover/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Generated danger-level outputs
+output_*.csv
+
+# Refresh metadata (regenerated)
+data/refresh_meta.json
+
+# Large downloaded USFWS PDFs (re-fetched by refresh_data.py)
+data/official/*.pdf
+!data/official/.gitkeep

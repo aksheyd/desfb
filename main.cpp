@@ -1,12 +1,10 @@
-#include <iostream>
-#include <string>
-#include <stdio.h>
 #include <cstdlib>
 #include <chrono>
+#include <iostream>
+#include <string>
 #include <thread>
 
 using namespace std;
-
 
 void command_screen();
 void DESFB_overview();
@@ -14,10 +12,28 @@ void modeler_main();
 void instructions();
 void change_climate(int input);
 
+// Prefer venv python if present; otherwise system python3.
+static string python_cmd() {
+    if (system("test -x .venv/bin/python") == 0) {
+        return ".venv/bin/python";
+    }
+    return "python3";
+}
+
+static void run_python_scripts(int temp_f) {
+    string py = python_cmd();
+    string analyze = py + " sheet_analyzer.py -p " + to_string(temp_f);
+    string printit = py + " print_data.py";
+    system("clear && printf '\\e[3J'");
+    system(analyze.c_str());
+    system("clear && printf '\\e[3J'");
+    system(printit.c_str());
+}
+
 int main() {
     int input;
 
-    system("clear && printf \'\\e[3J\'");
+    system("clear && printf '\\e[3J'");
     cout << "Welcome to the Don Edwards San Fransisco Bay Wildlife Refuge Climate Modeler" << endl;
     cout << "Please choose an option from below:" << endl;
     cout << "1: Start" << endl;
@@ -43,7 +59,7 @@ void command_screen() {
 }
 
 void DESFB_overview() {
-    system("clear && printf \'\\e[3J\'");
+    system("clear && printf '\\e[3J'");
     string input;
 
     cout << "Don Edwards San Francisco Bay National Wildlife Refuge, CA, USA" << endl;
@@ -53,45 +69,30 @@ void DESFB_overview() {
     cout << "Species: 269 Birds, 28 Mammals, 12 Amphibian/Reptiles, 62 Fish, 335 Fauna" << endl;
     cout << endl;
 
-    
-    std::this_thread::sleep_for(chrono::nanoseconds(10));
-    std::this_thread::sleep_until(std::chrono::system_clock::now() + std::chrono::seconds(1));
-    system("clear && printf \'\\e[3J\'");
-    
+    this_thread::sleep_until(chrono::system_clock::now() + chrono::seconds(1));
+    system("clear && printf '\\e[3J'");
 
     cout << "Here's a sneakpeek at some of the birds, mammals, etc" << endl;
-    cout << "For the Danger Level coloumn, this number is calculated based on the inital data given" << endl <<
+    cout << "For the Danger Level column, this number is calculated based on the initial data given" << endl <<
             "from the US Fish & Wildlife Service. It is based on many factors including the species" << endl <<
             "origin, endangered-level, etc." << endl;
-    
-    std::this_thread::sleep_for(chrono::nanoseconds(10));
-    std::this_thread::sleep_until(std::chrono::system_clock::now() + std::chrono::seconds(1));
-    
+    cout << "(Toy heuristic — not a scientific extinction model.)" << endl;
 
-    string filename = "\"/Users/aksheydeokule/Documents/EcoData S2/Climate Modeler/sheet_analyzer.py\"";
-    string command = "python3 ";
-    command += filename + " -p 60"; //accounts for command line arguements
-    system("clear && printf \'\\e[3J\'");
-    system(command.c_str());
+    this_thread::sleep_until(chrono::system_clock::now() + chrono::seconds(1));
 
-    filename = "\"/Users/aksheydeokule/Documents/EcoData S2/Climate Modeler/print_data.py\"";
-    command = "python3 ";
-    command += filename;
-    system("clear && printf \'\\e[3J\'");
-    system(command.c_str());
+    run_python_scripts(60);
 
     cout << "Please click enter when you are ready to move on!" << endl;
     cin >> input;
 
     modeler_main();
-    return;
 }
 
 void modeler_main() {
-    system("clear && printf \'\\e[3J\'");
+    system("clear && printf '\\e[3J'");
 
     int input;
-    cout << "Now, it\'s your turn! Use the following instructions to affect the climate:" << endl << endl;
+    cout << "Now, it's your turn! Use the following instructions to affect the climate:" << endl << endl;
     instructions();
     cin >> input;
 
@@ -102,30 +103,15 @@ void modeler_main() {
     }
 
     change_climate(input);
-    return;
 }
 
 void instructions() {
-    // Make this a more robust command system, for now its just the desired temperature
     cout << "Input a temperature from 0 to 99 degrees Fahrenheit." << endl;
     cout << "Ex: 50, 95, 99, 5, etc." << endl;
 }
 
 void change_climate(int input) {
-    string inp_s = to_string(input);
-    string filename = "\"/Users/aksheydeokule/Documents/EcoData S2/Climate Modeler/sheet_analyzer.py\"";
-    string command = "python3 ";
-    command += filename + " -p " + inp_s; //accounts for command line arguements
-    cout << command << endl;
-    system("clear && printf \'\\e[3J\'");
-    system(command.c_str());
-
-    filename = "\"/Users/aksheydeokule/Documents/EcoData S2/Climate Modeler/print_data.py\"";
-    command = "python3 ";
-    command += filename;
-    system("clear && printf \'\\e[3J\'");
-    system(command.c_str());
-    
+    run_python_scripts(input);
 
     int hel;
     cin >> hel;
