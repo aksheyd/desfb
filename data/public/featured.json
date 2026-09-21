@@ -1,0 +1,35 @@
+{
+  "species": [
+    {
+      "id": "ridgways-rail",
+      "common_name": "Ridgway's Rail (California Clapper Rail)",
+      "scientific_name": "Rallus obsoletus",
+      "federal": "E",
+      "state": "E",
+      "occurrence": "nests locally",
+      "blurb": "A secretive marsh bird that calls from pickleweed and cordgrass. Once called California Clapper Rail; still one of the refuge's signature endangered shorebirds.",
+      "taxon": "bird"
+    },
+    {
+      "id": "salt-marsh-harvest-mouse",
+      "common_name": "Salt Marsh Harvest Mouse",
+      "scientific_name": "Reithrodontomys raviventris raviventris",
+      "federal": "E",
+      "state": "E",
+      "occurrence": "marsh",
+      "blurb": "A tiny endemic rodent that lives only in Bay Area tidal marshes. Don Edwards protects critical pickleweed habitat for this federally endangered species.",
+      "taxon": "mammal"
+    },
+    {
+      "id": "western-snowy-plover",
+      "common_name": "Western Snowy Plover",
+      "scientific_name": "Anarhynchus nivosus",
+      "federal": "T",
+      "state": "",
+      "occurrence": "nests locally",
+      "blurb": "A small shorebird that nests on salt-pond levees and open flats. Look for them quietly running along pale shorelines — please keep distance from nesting areas.",
+      "taxon": "bird"
+    }
+  ],
+  "note": "Flagship refuge species drawn from inventory CSVs; blurbs are visitor-oriented."
+}

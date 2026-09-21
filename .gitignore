@@ -1,0 +1,21 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+*~
+*.swp
+
+# Local preview / scratch
+_site/
+/tmp/
+
+# Legacy climate outputs (do not reintroduce)
+output_*.csv
+data/refresh_meta.json
+data/official/*.pdf

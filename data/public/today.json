@@ -1,0 +1,111 @@
+{
+  "synced_at": "2026-09-21T06:21:42Z",
+  "timezone": "America/Los_Angeles",
+  "season": "fall",
+  "tides": {
+    "station_id": "9414551",
+    "station_name": "Alviso (CO-OPS 9414551)",
+    "datum": "MLLW",
+    "units": "ft",
+    "predictions": [
+      {
+        "time": "2026-09-20 04:04",
+        "height_ft": 0.7,
+        "type": "low"
+      },
+      {
+        "time": "2026-09-20 10:31",
+        "height_ft": 7.44,
+        "type": "high"
+      },
+      {
+        "time": "2026-09-20 16:19",
+        "height_ft": 3.25,
+        "type": "low"
+      },
+      {
+        "time": "2026-09-20 20:23",
+        "height_ft": 8.63,
+        "type": "high"
+      }
+    ],
+    "source": "https://api.tidesandcurrents.noaa.gov/"
+  },
+  "forecast": {
+    "lat": 37.46,
+    "lon": -121.97,
+    "office": "MTR",
+    "city": "San Jose",
+    "state": "CA",
+    "periods": [
+      {
+        "name": "Tonight",
+        "startTime": "2026-09-20T23:00:00-07:00",
+        "isDaytime": false,
+        "temperature": 56,
+        "temperatureUnit": "F",
+        "windSpeed": "5 mph",
+        "windDirection": "NW",
+        "shortForecast": "Mostly Cloudy",
+        "detailedForecast": "Mostly cloudy, with a low around 56. Northwest wind around 5 mph."
+      },
+      {
+        "name": "Monday",
+        "startTime": "2026-09-21T06:00:00-07:00",
+        "isDaytime": true,
+        "temperature": 75,
+        "temperatureUnit": "F",
+        "windSpeed": "2 to 12 mph",
+        "windDirection": "SW",
+        "shortForecast": "Mostly Sunny",
+        "detailedForecast": "Mostly sunny. High near 75, with temperatures falling to around 72 in the afternoon. Southwest wind 2 to 12 mph, with gusts as high as 18 mph."
+      },
+      {
+        "name": "Monday Night",
+        "startTime": "2026-09-21T18:00:00-07:00",
+        "isDaytime": false,
+        "temperature": 56,
+        "temperatureUnit": "F",
+        "windSpeed": "3 to 9 mph",
+        "windDirection": "WSW",
+        "shortForecast": "Partly Cloudy",
+        "detailedForecast": "Partly cloudy, with a low around 56. West southwest wind 3 to 9 mph, with gusts as high as 18 mph."
+      },
+      {
+        "name": "Tuesday",
+        "startTime": "2026-09-22T06:00:00-07:00",
+        "isDaytime": true,
+        "temperature": 77,
+        "temperatureUnit": "F",
+        "windSpeed": "2 to 10 mph",
+        "windDirection": "WSW",
+        "shortForecast": "Mostly Sunny",
+        "detailedForecast": "Mostly sunny, with a high near 77. West southwest wind 2 to 10 mph."
+      },
+      {
+        "name": "Tuesday Night",
+        "startTime": "2026-09-22T18:00:00-07:00",
+        "isDaytime": false,
+        "temperature": 57,
+        "temperatureUnit": "F",
+        "windSpeed": "0 to 10 mph",
+        "windDirection": "SW",
+        "shortForecast": "Mostly Clear",
+        "detailedForecast": "Mostly clear, with a low around 57. Southwest wind 0 to 10 mph."
+      },
+      {
+        "name": "Wednesday",
+        "startTime": "2026-09-23T06:00:00-07:00",
+        "isDaytime": true,
+        "temperature": 83,
+        "temperatureUnit": "F",
+        "windSpeed": "0 to 9 mph",
+        "windDirection": "SSW",
+        "shortForecast": "Sunny",
+        "detailedForecast": "Sunny, with a high near 83."
+      }
+    ],
+    "source": "https://www.weather.gov/"
+  },
+  "errors": []
+}

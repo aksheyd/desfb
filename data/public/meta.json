@@ -1,0 +1,13 @@
+{
+  "name": "desfb",
+  "title": "Don Edwards SF Bay NWR — visitor companion",
+  "refuge_url": "https://www.fws.gov/refuge/don-edwards-san-francisco-bay",
+  "pages_url": "https://aksheyd.github.io/desfb/",
+  "repo_url": "https://github.com/aksheyd/desfb",
+  "tide_station": "9414551",
+  "forecast_point": {
+    "lat": 37.46,
+    "lon": -121.97
+  },
+  "synced_at": "2026-09-21T06:21:42Z"
+}
