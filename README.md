@@ -1,104 +1,86 @@
-# Don Edwards San Francisco Bay Wildlife Refuge Climate Modeler
+# desfb — Don Edwards SF Bay NWR companion
 
-Michigan EcoData project by Akshey Deokule. Loads species lists for
-[Don Edwards SF Bay NWR](https://www.fws.gov/refuge/don-edwards-san-francisco-bay)
-and assigns each species a **Danger Level** from a simple temperature-delta
-heuristic plus listing/occurrence rules. When Danger Level reaches 100, the
-scenario treats that species as "extinct."
+Small visit-oriented site and data sync for
+[Don Edwards San Francisco Bay National Wildlife Refuge](https://www.fws.gov/refuge/don-edwards-san-francisco-bay)
+(the nation’s first urban NWR, South Bay tidal marsh & salt ponds).
 
-**This is a toy heuristic, not a scientific climate or extinction model.**
+**Live site:** [https://aksheyd.github.io/desfb/](https://aksheyd.github.io/desfb/)
 
-## Data sources
+Built by Akshey Deokule (Michigan EcoData roots). The repo is public so GitHub Pages can serve the site.
 
-| Layer | What it is |
-|-------|------------|
-| **Default live refresh** | USFWS ServCat **2008 bird checklist PDF** ([ServCat DownloadFile/800](https://ecos.fws.gov/ServCat/DownloadFile/800?Reference=721)) parsed with `pdftotext -bbox`, plus mammals / amphibians-reptiles / fish from `data/bundled/` (EcoData-era USFWS-derived inventories). |
-| `data/official/SFB_2008_BirdList.pdf` | Cached ServCat PDF (downloaded by `refresh_data.py`). |
-| `data/bundled/*.csv` | Offline EcoData-era refuge tables. Used for non-bird taxa and as full offline fallback. |
-| `data/*.csv` (active) | Working tables used by the CLI and dashboard. |
-| Optional `--inat` | [iNaturalist](https://www.inaturalist.org/places/50136) verifiable observation species counts for place_id `50136`. Observation-based — **not** a complete USFWS inventory. |
-| Plants (optional, unscored) | `Plant_List.pdf` → `data/PlantSheet.csv` when present. Not scored by `climate_modeler.py`. |
+## What’s on the site
 
-### Why not the IRIS Species API?
-
-The USFWS IRIS NWRSpecies API previously documented for refuge downloads:
-
-`https://iris.fws.gov/APPS/PubData/NWRSpecies/SpeciesAPI`
-
-returns **HTTP 404** as of 2026 (retired). This project does **not** call it.
-The default path uses the ServCat bird checklist PDF instead.
-
-Optional env vars:
-
-- `DATA_DIR` — override active CSV directory (default `data/`)
-- `INATURALIST_PLACE_ID` — override place id for `--inat` (default `50136`)
-
-## Quick start
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-
-# Default: download/parse USFWS ServCat birds + bundled other taxa
-python refresh_data.py
-python climate_modeler.py --temp 60
-
-# Offline restore of bundled EcoData tables
-python refresh_data.py --bundled-only
-
-# Optional observation-based refresh
-python refresh_data.py --inat
-
-# Explore dashboard (scrollable tables, temp slider, refresh controls)
-python dashboard.py
-# open http://127.0.0.1:5050
-```
-
-### How refresh works
-
-1. **USFWS (default):** download ServCat PDF → `usfws_parse.py` extracts common
-   names, abundance codes (`a/c/u/o/r`), nesting (`*`), and accidentals → write
-   `data/BirdSheet.csv`. Scientific Name / Federal / State / Classification are
-   merged from bundled EcoData rows by common-name match. Mammals, herps, and
-   fish are copied from `data/bundled/`.
-2. **`--bundled-only`:** copy all four taxon sheets from `data/bundled/`.
-3. **`--inat`:** pull iNaturalist species counts (optional; falls back to bundled
-   on network failure).
-
-`data/refresh_meta.json` records mode, counts, source URLs, and the IRIS 404 note.
-
-## Inputs / outputs
-
-| Input | Description |
-|-------|-------------|
-| `data/BirdSheet.csv` (etc.) | Active species tables |
-| `--temp` / `-t` | Hypothetical °F (baseline **60**) |
-
-| Output | Description |
-|--------|-------------|
-| stdout / dashboard | Per-taxa summaries + Danger Levels |
-| `data/refresh_meta.json` | Last refresh mode, counts, timestamp |
+1. **About the park** — short visitor intro + FWS link  
+2. **Today strip** — Alviso tides (NOAA CO-OPS `9414551`) + NWS forecast near `37.46, -121.97`  
+3. **Seasonal highlights** — ~15–20 birds from the USFWS checklist by rough season  
+4. **Featured species** — Ridgway’s / Clapper rail, salt-marsh harvest mouse, western snowy plover  
+5. **How to visit** — Alviso pointer + official refuge page  
 
 ## Layout
 
-- `climate_modeler.py` — scoring CLI
-- `refresh_data.py` — pull/update CSVs (USFWS default)
-- `usfws_parse.py` — ServCat bird PDF (+ optional plant PDF) parser
-- `dashboard.py` — local Flask explore UI
-- `data/bundled/` — offline EcoData / USFWS-derived sample
-- `data/official/` — downloaded ServCat PDF cache
-- Optional C++ menu (`make`) — thin shell-out only; no Boost
+```
+site/                      # static Pages app
+  index.html
+  styles.css
+  app.js                   # fetches data/public/*.json
+data/public/               # committed JSON consumed by the site
+  today.json
+  season.json
+  featured.json
+  meta.json
+scripts/sync_today.py      # CO-OPS + NWS + season/featured builders
+.github/workflows/
+  pages.yml                # assemble site + data/public → GitHub Pages
+  sync-data.yml            # daily cron + manual dispatch
+```
 
-## Known limitations
+## Daily sync
 
-- Toy Danger Level curve; mainly reacts when temperature **falls below** 60 °F.
-- Bird scientific names / listing codes depend on common-name matches against
-  bundled EcoData sheets (AOU/name drift may leave gaps).
-- iNaturalist refresh is observation-biased; prefer the USFWS default for an
-  inventory-style bird list.
-- Flora may be exported to `PlantSheet.csv` but is **not** scored.
-- `pyqt_test.py` is unused.
+- Workflow: `.github/workflows/sync-data.yml`
+- Schedule: `0 14 * * *` (14:00 UTC) plus **workflow_dispatch**
+- Writes `data/public/*.json`; commits only when content changes (`chore(data): daily public JSON sync`)
+- NWS requests use User-Agent `desfb (https://github.com/aksheyd/desfb)`
 
-Sample CLI capture: [docs/SAMPLE_RUN.md](docs/SAMPLE_RUN.md).
-Dashboard walkthrough: [docs/DASHBOARD.md](docs/DASHBOARD.md).
+Re-run manually:
+
+```bash
+gh workflow run sync-data.yml --repo aksheyd/desfb
+# or locally:
+python3 scripts/sync_today.py
+```
+
+## Local preview
+
+```bash
+python3 scripts/sync_today.py
+mkdir -p /tmp/desfb-site/data && cp -a site/. /tmp/desfb-site/ && cp -a data/public /tmp/desfb-site/data/
+python3 -m http.server 8080 --directory /tmp/desfb-site
+# open http://127.0.0.1:8080/
+```
+
+## Optional: climate modeler & explore dashboard
+
+This repo still contains the original EcoData **toy** climate / Danger Level heuristic and a local Flask explore UI. They are **not** part of the public Pages site.
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+python refresh_data.py          # USFWS ServCat birds + bundled taxa
+python climate_modeler.py --temp 60
+python dashboard.py             # http://127.0.0.1:5050
+```
+
+**This is a toy heuristic, not a scientific climate or extinction model.**
+
+### Data sources (inventory tooling)
+
+| Layer | What it is |
+|-------|------------|
+| **Default live refresh** | USFWS ServCat **2008 bird checklist PDF** ([ServCat DownloadFile/800](https://ecos.fws.gov/ServCat/DownloadFile/800?Reference=721)) parsed with `pdftotext -bbox`, plus mammals / amphibians-reptiles / fish from `data/bundled/` |
+| `data/bundled/*.csv` | Offline EcoData-era refuge tables |
+| `data/*.csv` (active) | Working tables used by CLI / dashboard / public JSON builders |
+| Optional `--inat` | iNaturalist place `50136` (observation-based, incomplete) |
+
+The USFWS IRIS NWRSpecies API returns **HTTP 404** as of 2026 (retired). This project does not call it.
+
+See [docs/SAMPLE_RUN.md](docs/SAMPLE_RUN.md) and [docs/DASHBOARD.md](docs/DASHBOARD.md).

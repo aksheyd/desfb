@@ -1,0 +1,152 @@
+{
+  "season": "fall",
+  "label": "Fall",
+  "note": "Rough seasonal picks from the USFWS 2008 Don Edwards bird checklist (abundance codes a/c/u by Spring–Summer–Fall–Winter). Not a live eBird feed.",
+  "highlights": [
+    {
+      "common_name": "American Avocet",
+      "scientific_name": "Recurvirostra americana",
+      "abundance": "a",
+      "nests_locally": true,
+      "federal": "",
+      "state": ""
+    },
+    {
+      "common_name": "American Coot",
+      "scientific_name": "Fulica americana",
+      "abundance": "a",
+      "nests_locally": true,
+      "federal": "",
+      "state": ""
+    },
+    {
+      "common_name": "American Wigeon",
+      "scientific_name": "Anas americana",
+      "abundance": "a",
+      "nests_locally": false,
+      "federal": "",
+      "state": ""
+    },
+    {
+      "common_name": "Black-bellied Plover",
+      "scientific_name": "Pluvialis squatarola",
+      "abundance": "a",
+      "nests_locally": false,
+      "federal": "",
+      "state": ""
+    },
+    {
+      "common_name": "Black-necked Stilt",
+      "scientific_name": "Himantopus mexicanus",
+      "abundance": "a",
+      "nests_locally": true,
+      "federal": "",
+      "state": ""
+    },
+    {
+      "common_name": "California Gull",
+      "scientific_name": "Larus californicus",
+      "abundance": "a",
+      "nests_locally": true,
+      "federal": "",
+      "state": ""
+    },
+    {
+      "common_name": "Cliff Swallow",
+      "scientific_name": "Petrochelidon pyrrhonota",
+      "abundance": "a",
+      "nests_locally": true,
+      "federal": "",
+      "state": ""
+    },
+    {
+      "common_name": "Double-crested Cormorant",
+      "scientific_name": "Phalacrocorax auritus",
+      "abundance": "a",
+      "nests_locally": true,
+      "federal": "",
+      "state": ""
+    },
+    {
+      "common_name": "Dunlin",
+      "scientific_name": "Calidris alpina",
+      "abundance": "a",
+      "nests_locally": false,
+      "federal": "",
+      "state": ""
+    },
+    {
+      "common_name": "Forster's Tern",
+      "scientific_name": "Sterna forsteri",
+      "abundance": "a",
+      "nests_locally": true,
+      "federal": "",
+      "state": ""
+    },
+    {
+      "common_name": "Herring Gull",
+      "scientific_name": "Larus argentatus",
+      "abundance": "a",
+      "nests_locally": false,
+      "federal": "",
+      "state": ""
+    },
+    {
+      "common_name": "House Finch",
+      "scientific_name": "Carpodacus mexicanus",
+      "abundance": "a",
+      "nests_locally": true,
+      "federal": "",
+      "state": ""
+    },
+    {
+      "common_name": "Lesser Scaup",
+      "scientific_name": "Aythya affinis",
+      "abundance": "a",
+      "nests_locally": true,
+      "federal": "",
+      "state": ""
+    },
+    {
+      "common_name": "Long-billed Dowitcher",
+      "scientific_name": "Limnodromus scolopaceus",
+      "abundance": "a",
+      "nests_locally": false,
+      "federal": "",
+      "state": ""
+    },
+    {
+      "common_name": "Marbled Godwit",
+      "scientific_name": "Limosa fedoa",
+      "abundance": "a",
+      "nests_locally": false,
+      "federal": "",
+      "state": ""
+    },
+    {
+      "common_name": "Northern Shoveler",
+      "scientific_name": "Anas clypeata",
+      "abundance": "a",
+      "nests_locally": true,
+      "federal": "",
+      "state": ""
+    },
+    {
+      "common_name": "Red-necked Phalarope",
+      "scientific_name": "Phalaropus lobatus",
+      "abundance": "a",
+      "nests_locally": false,
+      "federal": "",
+      "state": ""
+    },
+    {
+      "common_name": "Ring-billed Gull",
+      "scientific_name": "Larus delawarensis",
+      "abundance": "a",
+      "nests_locally": false,
+      "federal": "",
+      "state": ""
+    }
+  ],
+  "source": "data/BirdSheet.csv (USFWS ServCat bird checklist 2008)"
+}

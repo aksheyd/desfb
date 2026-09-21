@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Don Edwards SF Bay NWR — visitor companion</title>
+  <meta name="description" content="A small visit-oriented companion for Don Edwards San Francisco Bay National Wildlife Refuge: tides, forecast, seasonal birds, and flagship species." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="logo.jpg" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <img class="logo" src="logo.jpg" alt="Don Edwards SF Bay NWR logo" width="72" height="72" />
+      <div>
+        <p class="eyebrow">South San Francisco Bay</p>
+        <h1>Don Edwards SF Bay National Wildlife Refuge</h1>
+        <p class="lede">
+          A quiet companion for walking the levees — tides at Alviso, today’s forecast,
+          seasonal birds, and a few species that make this place special.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="today" class="panel today-strip" aria-labelledby="today-heading">
+      <div class="panel-head">
+        <h2 id="today-heading">Today at the refuge</h2>
+        <p class="meta" id="synced-at">Loading…</p>
+      </div>
+      <div class="today-grid">
+        <article class="card" id="tides-card">
+          <h3>Alviso tides</h3>
+          <p class="sub">CO-OPS station 9414551 · MLLW (ft)</p>
+          <ul id="tides-list" class="tide-list"></ul>
+        </article>
+        <article class="card" id="forecast-card">
+          <h3>Forecast</h3>
+          <p class="sub" id="forecast-place">NWS · ~37.46, −121.97</p>
+          <div id="forecast-list" class="forecast-list"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="about" class="panel" aria-labelledby="about-heading">
+      <h2 id="about-heading">About the park</h2>
+      <p>
+        Don Edwards San Francisco Bay National Wildlife Refuge is the nation’s first
+        <strong>urban</strong> national wildlife refuge — established in 1972 to protect
+        the remaining tidal marshes, mudflats, and salt ponds of the South Bay.
+        From Alviso to the Dumbarton Bridge, the refuge shelters migratory shorebirds,
+        waterfowl, and endemic marsh wildlife in the middle of Silicon Valley.
+      </p>
+      <p>
+        Trails follow levees through pickleweed and open water. Bring binoculars, watch
+        the tide, and give nesting birds room.
+        <a href="https://www.fws.gov/refuge/don-edwards-san-francisco-bay" rel="noopener">Official FWS refuge page</a>.
+      </p>
+    </section>
+
+    <section id="season" class="panel" aria-labelledby="season-heading">
+      <div class="panel-head">
+        <h2 id="season-heading">Seasonal highlights</h2>
+        <p class="meta" id="season-label"></p>
+      </div>
+      <p class="note" id="season-note"></p>
+      <ul id="season-list" class="chip-list"></ul>
+    </section>
+
+    <section id="featured" class="panel" aria-labelledby="featured-heading">
+      <h2 id="featured-heading">Featured species</h2>
+      <div id="featured-list" class="featured-grid"></div>
+    </section>
+
+    <section id="visit" class="panel" aria-labelledby="visit-heading">
+      <h2 id="visit-heading">How to visit</h2>
+      <p>
+        A good starting point is the <strong>Alviso</strong> area (Environmental Education Center
+        and nearby levee trails in San Jose / Santa Clara County). Check hours, closures, and
+        hunting calendars before you go — conditions change with restoration work and seasons.
+      </p>
+      <ul class="plain">
+        <li><a href="https://www.fws.gov/refuge/don-edwards-san-francisco-bay" rel="noopener">Plan your visit (FWS)</a></li>
+        <li>Tides above use NOAA CO-OPS station <code>9414551</code> (Alviso).</li>
+        <li>Forecast is National Weather Service for roughly 37.46°N, 121.97°W.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      Unofficial visitor companion for
+      <a href="https://www.fws.gov/refuge/don-edwards-san-francisco-bay">Don Edwards SF Bay NWR</a>.
+      Data sync from NOAA &amp; NWS · species lists from USFWS inventory CSVs in this repo.
+    </p>
+    <p class="footer-links">
+      <a href="https://github.com/aksheyd/desfb">GitHub</a>
+      ·
+      <a href="https://github.com/aksheyd/desfb/blob/main/docs/DASHBOARD.md">Optional local explore dashboard</a>
+    </p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
