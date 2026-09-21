@@ -1,8 +1,13 @@
-Common Name,Scientific Name,Occurrence,Classification,Federal,State,Source,Obs Count
-California Slender Salamander,Batrachoseps attenuatus,Possible,native,,,iNaturalist species_counts place_id=50136,3
-Pacific chorus frog,Pseudacris regilla,Known,native,,,iNaturalist species_counts place_id=50136,1
-Western Fence Lizard,Sceloporus occidentalis,Known,native,,,iNaturalist species_counts place_id=50136,94
-Gopher Snake,Pituophis catenifer,iNaturalist observations: 36,,,,iNaturalist species_counts place_id=50136,36
-Southern Alligator Lizard,Elgaria multicarinata,Known,native,,,iNaturalist species_counts place_id=50136,3
-North American Racer,Coluber constrictor,iNaturalist observations: 2,,,,iNaturalist species_counts place_id=50136,2
-Western Rattlesnake,Crotalus oreganus,Known,native,,,iNaturalist species_counts place_id=50136,1
+Common Name,Scientific Name,Occurrence,Classification,Federal,State,Source
+California tiger salamander,Ambystoma californiense,Known,native,T,E,bundled EcoData / USFWS-derived
+Arboreal salamander,Aneides lugubris,Possible,native,,,bundled EcoData / USFWS-derived
+California slender salamander,Batrachoseps attenuatus,Possible,native,,,bundled EcoData / USFWS-derived
+Pacific tree frog,Pseudacris regilla,Known,native,,,bundled EcoData / USFWS-derived
+Western fence lizard,Sceloporus occidentalis,Known,native,,,bundled EcoData / USFWS-derived
+Western skink,Eumeces skiltonianus,Possible,native,,,bundled EcoData / USFWS-derived
+Southern alligator lizard,Elgaria multicarinata,Known,native,,,bundled EcoData / USFWS-derived
+Gopher snake,Pituophis melanoleuca,Known,native,,,bundled EcoData / USFWS-derived
+Common garter snake,Thamnophis sirtalis,Known,native,,,bundled EcoData / USFWS-derived
+Western terrestrial garter snake,Thamnophis elegans,Known,native,,,bundled EcoData / USFWS-derived
+Western rattlesnakes,Crotalus oreganus,Known,native,,,bundled EcoData / USFWS-derived
+Western pond turtle,Clemmys marmorata,Known,native,,SC,bundled EcoData / USFWS-derived

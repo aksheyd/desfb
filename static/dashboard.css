@@ -119,3 +119,18 @@ tbody tr:hover { background: #1a283b; }
   font-size: 0.78rem;
   color: var(--muted);
 }
+
+.badge {
+  display: inline-block;
+  align-self: center;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: #243447;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.badge[data-mode="usfws_official"] { color: #8dffc2; border-color: #2f6b4f; }
+.badge[data-mode="inaturalist"] { color: #9ec5ff; border-color: #3a5a8a; }
+.badge[data-mode="bundled"], .badge[data-mode="bundled_fallback"] { color: var(--warn); }

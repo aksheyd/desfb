@@ -123,8 +123,13 @@ def api_taxa(key: str):
 def api_refresh():
     body = request.get_json(silent=True) or {}
     bundled_only = bool(body.get("bundled_only", False))
+    use_inat = bool(body.get("use_inat", False))
     try:
-        meta = refresh_species_data(prefer_live=not bundled_only)
+        meta = refresh_species_data(
+            prefer_live=not bundled_only,
+            use_inat=use_inat,
+            bundled_only=bundled_only,
+        )
         return jsonify(meta)
     except Exception as exc:
         return (

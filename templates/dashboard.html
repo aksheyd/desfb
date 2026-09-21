@@ -19,8 +19,12 @@
       </p>
     </div>
     <div class="actions">
-      <button id="btn-refresh" type="button" title="Pull iNaturalist species counts (falls back to bundled)">
-        Refresh data
+      <span id="source-badge" class="badge" title="Active data source">source: …</span>
+      <button id="btn-refresh" type="button" title="Refresh from USFWS ServCat bird checklist + bundled mammals/herps/fish">
+        Refresh (USFWS)
+      </button>
+      <button id="btn-inat" type="button" class="secondary" title="Optional: iNaturalist observation species counts">
+        Refresh (iNat)
       </button>
       <button id="btn-restore" type="button" class="secondary" title="Restore EcoData bundled CSVs">
         Restore bundled
@@ -78,10 +82,11 @@
 
   <footer class="panel muted">
     <p>
-      Data: active CSVs in <code>data/</code>. Live refresh uses
-      <a href="https://www.inaturalist.org/places/50136" target="_blank" rel="noopener">iNaturalist place 50136</a>
-      (verifiable observation species counts). Bundled fallback =
-      EcoData-era USFWS-derived refuge lists. Sources documented in README.
+      Default refresh: USFWS ServCat 2008 bird checklist PDF + bundled EcoData
+      mammals/herps/fish. Optional iNaturalist place
+      <a href="https://www.inaturalist.org/places/50136" target="_blank" rel="noopener">50136</a>
+      for observation counts. The IRIS NWRSpecies API is retired (HTTP 404).
+      See README for sources.
     </p>
     <pre id="meta-box" class="meta"></pre>
   </footer>

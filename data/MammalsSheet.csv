@@ -1,21 +1,29 @@
-Common Name,Scientific Name,Occurrence,Classification,Federal,State,Source,Obs Count
-Desert Cottontail,Sylvilagus audubonii,upland,native,,,iNaturalist species_counts place_id=50136,112
-California Ground Squirrel,Otospermophilus beecheyi,iNaturalist observations: 98,,,,iNaturalist species_counts place_id=50136,98
-Common Raccoon,Procyon lotor,all habitats,native,,,iNaturalist species_counts place_id=50136,50
-Black-tailed Jackrabbit,Lepus californicus,upland,native,,,iNaturalist species_counts place_id=50136,34
-Brush Rabbit,Sylvilagus bachmani,upland,native,,,iNaturalist species_counts place_id=50136,30
-Gray Fox,Urocyon cinereoargenteus,all habitats,native,,,iNaturalist species_counts place_id=50136,29
-Harbor Seal,Phoca vitulina,iNaturalist observations: 22,,,,iNaturalist species_counts place_id=50136,22
-Muskrat,Ondatra zibethicus,all habitats,native,,,iNaturalist species_counts place_id=50136,5
-Brown Rat,Rattus norvegicus,all habitats,non-native,,,iNaturalist species_counts place_id=50136,4
-Coyote,Canis latrans,iNaturalist observations: 3,,,,iNaturalist species_counts place_id=50136,3
-Salt Marsh Harvest Mouse,Reithrodontomys raviventris,iNaturalist observations: 3,,,,iNaturalist species_counts place_id=50136,3
-Botta's Pocket Gopher,Megascapheus bottae,iNaturalist observations: 2,,,,iNaturalist species_counts place_id=50136,2
-Eastern Fox Squirrel,Sciurus niger,iNaturalist observations: 2,,,,iNaturalist species_counts place_id=50136,2
-North American River Otter,Lontra canadensis,iNaturalist observations: 2,,,,iNaturalist species_counts place_id=50136,2
-California Sea Lion,Zalophus californianus,iNaturalist observations: 1,,,,iNaturalist species_counts place_id=50136,1
-California Vole,Microtus californicus,all habitats,native,,,iNaturalist species_counts place_id=50136,1
-Eastern Gray Squirrel,Sciurus carolinensis,iNaturalist observations: 1,,,,iNaturalist species_counts place_id=50136,1
-Harbour Porpoise,Phocoena phocoena,iNaturalist observations: 1,,,,iNaturalist species_counts place_id=50136,1
-Mule Deer,Odocoileus hemionus,iNaturalist observations: 1,,,,iNaturalist species_counts place_id=50136,1
-Western Harvest Mouse,Reithrodontomys megalotis,all habitats,native,,,iNaturalist species_counts place_id=50136,1
+Common Name,Scientific Name,Occurrence,Classification,Federal,State,Source
+Virginia opossum,Didelphis virginianus,upland,non-native,,,bundled EcoData / USFWS-derived
+salt marsh wandering shrew,Sorex vagrans halicoetes,marsh,native,,,bundled EcoData / USFWS-derived
+Yuma myotis,Myotis yumanensis,all habitats,native,,,bundled EcoData / USFWS-derived
+Western red bats,Lasirurs blossevillii,all habitats,native,,,bundled EcoData / USFWS-derived
+Hoary bats,Lasiurus cinereus,all habitats,native,,,bundled EcoData / USFWS-derived
+Mexican free-tailed bat,Tadarida brasiliensis,all habitats,native,,,bundled EcoData / USFWS-derived
+Raccoon,Procyon lotor,all habitats,native,,,bundled EcoData / USFWS-derived
+Common muskrat,Ondatra zibethicus,all habitats,native,,,bundled EcoData / USFWS-derived
+Long-tailed weasel,Mustela frenata,all habitats,native,,,bundled EcoData / USFWS-derived
+Striped skunk,Mephitis mephitis,all habitats,native,,,bundled EcoData / USFWS-derived
+western spotted skunk,Spilogale gracilis,all habitats,native,,,bundled EcoData / USFWS-derived
+Gray fox,Urocyon cinereoargenteus,all habitats,native,,,bundled EcoData / USFWS-derived
+Red fox,Vulpes vulpes,all habitats,non-native,,,bundled EcoData / USFWS-derived
+Mountain lion,Felis concolor,all habitats,native,,FP,bundled EcoData / USFWS-derived
+Pacific harbor seal,Phoca vitulina richardsi,tidal sloughs,native,,,bundled EcoData / USFWS-derived
+California ground squirrel,Spermophilus beecheyi,upland,native,,,bundled EcoData / USFWS-derived
+Botta's pocket gopher,Thomomys bottae,upland,native,,,bundled EcoData / USFWS-derived
+Western harvest mouse,Reithrodontomys megalotis,all habitats,native,,,bundled EcoData / USFWS-derived
+Salt marsh harvest mouse,"Reithrodontomys raviventris
+raviventris",marsh,native,E,E,bundled EcoData / USFWS-derived
+House mouse,Mus musculus,all habitats,non-native,,,bundled EcoData / USFWS-derived
+Deer mouse,Peromyscus maniculatus,all habitats,native,,,bundled EcoData / USFWS-derived
+California vole,Microtus californicus,all habitats,native,,,bundled EcoData / USFWS-derived
+Norway rat,Rattus norvegicus,all habitats,non-native,,,bundled EcoData / USFWS-derived
+Black rat,Rattus rattus,all habitats,non-native,,,bundled EcoData / USFWS-derived
+Brush rabbit,Sylvilagus bachmani,upland,native,,,bundled EcoData / USFWS-derived
+Audubon's cottontail,Sylvilagus audubonii,upland,native,,,bundled EcoData / USFWS-derived
+Black-tailed jackrabbit,Lepus californicus,upland,native,,,bundled EcoData / USFWS-derived

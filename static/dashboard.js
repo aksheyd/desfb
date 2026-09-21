@@ -22,8 +22,24 @@
     status: document.getElementById("refresh-status"),
     meta: document.getElementById("meta-box"),
     btnRefresh: document.getElementById("btn-refresh"),
+    btnInat: document.getElementById("btn-inat"),
     btnRestore: document.getElementById("btn-restore"),
+    badge: document.getElementById("source-badge"),
   };
+
+  function updateBadge(meta) {
+    if (!el.badge) return;
+    const mode = meta.mode || "unknown";
+    const labels = {
+      usfws_official: "USFWS ServCat + bundled",
+      inaturalist: "iNaturalist (optional)",
+      bundled: "bundled EcoData",
+      bundled_fallback: "bundled EcoData",
+      unknown: "local CSVs",
+    };
+    el.badge.textContent = "source: " + (labels[mode] || mode);
+    el.badge.dataset.mode = mode;
+  }
 
   function setStatus(msg, kind) {
     el.status.textContent = msg || "";
@@ -59,6 +75,7 @@
     el.cards.innerHTML = cards.join("");
     el.changeVal.textContent = `Toy changeVal = ${summary.change_val} (baseline ${summary.baseline_f} °F). ${summary.note}`;
     el.meta.textContent = JSON.stringify(summary.refresh_meta || {}, null, 2);
+    updateBadge(summary.refresh_meta || {});
 
     const labels = summary.groups.map((g) => g.label);
     const avgs = summary.groups.map((g) => g.avg_danger);
@@ -192,15 +209,21 @@
     await loadTaxa();
   }
 
-  async function doRefresh(bundledOnly) {
+  async function doRefresh({ bundledOnly = false, useInat = false } = {}) {
     el.btnRefresh.disabled = true;
+    if (el.btnInat) el.btnInat.disabled = true;
     el.btnRestore.disabled = true;
-    setStatus(bundledOnly ? "Restoring bundled CSVs…" : "Refreshing from iNaturalist…", "");
+    const label = bundledOnly
+      ? "Restoring bundled CSVs…"
+      : useInat
+        ? "Refreshing from iNaturalist…"
+        : "Refreshing from USFWS ServCat…";
+    setStatus(label, "");
     try {
       const meta = await fetchJSON("/api/refresh", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ bundled_only: bundledOnly }),
+        body: JSON.stringify({ bundled_only: bundledOnly, use_inat: useInat }),
       });
       const mode = meta.mode || "?";
       setStatus(
@@ -214,6 +237,7 @@
       setStatus(`Refresh failed: ${err.message}`, "error");
     } finally {
       el.btnRefresh.disabled = false;
+      if (el.btnInat) el.btnInat.disabled = false;
       el.btnRestore.disabled = false;
     }
   }
@@ -246,8 +270,11 @@
     });
   });
 
-  el.btnRefresh.addEventListener("click", () => doRefresh(false));
-  el.btnRestore.addEventListener("click", () => doRefresh(true));
+  el.btnRefresh.addEventListener("click", () => doRefresh({ bundledOnly: false, useInat: false }));
+  if (el.btnInat) {
+    el.btnInat.addEventListener("click", () => doRefresh({ bundledOnly: false, useInat: true }));
+  }
+  el.btnRestore.addEventListener("click", () => doRefresh({ bundledOnly: true }));
 
   reloadAll().catch((err) => setStatus(`Load failed: ${err.message}`, "error"));
 })();
