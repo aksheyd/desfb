@@ -402,3 +402,11 @@ __pycache__/
 
 # OpenCover UI analysis results
 OpenCover/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Generated danger-level outputs
+output_*.csv

@@ -1,30 +1,56 @@
-Michigan EcoData: Don Edwards San Fransisco Bay Wildlife Refuge Climate Modeler
-===============================================================================
-By Akshey Deokule <aksheyd@umich.edu>
+# Don Edwards San Francisco Bay Wildlife Refuge Climate Modeler
 
-# Introduction
-This project is a Climate Modeler for the DESFB, a wildlife refuge 5 minutes away from my home in Fremont, CA which I frequent, using US Wildlife & Refuge data on the park's numerous species. I used C++ for the user environment and Python (Pandas) for the data analysis, sorting, and calculations of the danger level of species depending on the climate variables given.
+Michigan EcoData project by Akshey Deokule. Interactive toy tool that loads USFWS species lists for Don Edwards SF Bay NWR and assigns each species a **Danger Level** from a simple temperature-delta heuristic plus listing/occurrence rules. When Danger Level reaches 100, the model treats that species as “extinct” in-scenario.
 
-The calculations are (for now) based on a single variable called DangerValue which is changed depending on classifications of the species given and when it hits a 100 depending on what is changed in the climate modeler, that species is considered extinct in the model. There are many variables which truly affect a ecosystem, and so this is a very simple attempt to try and replicate that. I intend to add more variables in the future.
+**This is a toy heuristic, not a scientific climate or extinction model.** Thresholds are illustrative (EcoData-era experiments with linear/exponential curves). Species lists come from [USFWS Don Edwards San Francisco Bay](https://www.fws.gov/refuge/don-edwards-san-francisco-bay).
 
-# Get Started
-###### Disclaimer: This project is *NOT* intended to be heavily scientific. The calculations done on the ecosystem's survivability are loosely based on scientific articles and journals (even some Wikipedia). The source for the dataset of the flora and fauna can be found at https://fws.gov/refuge/Don_Edwards_San_Francisco_Bay/ 
-###### *Requires Python 3 and C++*
+## Inputs / outputs
 
-```console 
-$ make main.exe
-$ ./main.exe
+| Input | Description |
+|-------|-------------|
+| `BirdSheet.csv`, `MammalsSheet.csv`, `AmphibianReptilesSheet.csv`, `FishsSheet.csv` | Bundled sample species tables (repo root) |
+| `--temp` / `-t` | Hypothetical temperature °F (baseline **60**) |
+| `DATA_DIR` or `--data-dir` | Optional alternate CSV directory |
+
+| Output | Description |
+|--------|-------------|
+| stdout summary | Per-group head rows + min/max/mean Danger Level |
+| `output_*.csv` | Optional scored tables (`--keep-output`) |
+
+## How to run
+
+Requires Python 3.10+.
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+
+# One command — baseline (60 °F)
+python climate_modeler.py
+
+# Warmer scenario
+python climate_modeler.py --temp 75 --keep-output
 ```
 
-# Explanation of Danger Level Calculations
-I tried many ways to model how changes in temperature would affect survivability of the flora and fauna in the DESFB as shown in the this image:
+Optional interactive C++ menu (shells out to the same Python scripts; no Boost):
 
-<img src="img/regression_tries.png" width="500">
+```bash
+make main.exe
+./main.exe    # run from repo root
+```
 
-Yet, I seemed to have landed on whats shown in this one:
+Sample captured run: [docs/SAMPLE_RUN.md](docs/SAMPLE_RUN.md).
 
-<img src="img/danger_lvl_regression.png" width="500">
+## Layout notes
 
-IN PROGRESS = (working on changing the csv files when the user inputs a new temperature!)
+- Primary CLI: `climate_modeler.py`
+- Legacy helpers used by the C++ menu: `sheet_analyzer.py`, `print_data.py`
+- `pyqt_test.py` is an unfinished GUI sketch and is not part of the run path
 
+## Known limitations (toy model)
 
+- Danger Level rules and the temperature curve are hand-tuned EcoData experiments, not validated ecology.
+- The original curve mainly increases scores when temperature **falls below** 60 °F; warming above baseline leaves `changeVal` near 0.
+- Flora / plant list is not scored. `pyqt_test.py` is unused.
+- Optional C++ binary is a menu only; all scoring is Python.

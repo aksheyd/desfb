@@ -1,56 +1,60 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
+"""Legacy entry point: print danger-level summaries from output_*.csv.
+
+Prefer: python climate_modeler.py --temp N
+"""
+
+from __future__ import annotations
+
+import argparse
+import os
+from pathlib import Path
 
 import pandas as pd
-import io
-import json
-import os
 
-bs_df = pd.read_csv (r'/Users/aksheydeokule/Documents/EcoData S2/Climate Modeler/output_birds.csv')
-bs_df = bs_df[:270] 
-print("Birds: ")
-print("======")
-print(bs_df[["Common Name", "Scientific Name", "Danger Level"]].head())
-print("Max Danger Level for Birds = ", bs_df["Danger Level"].max())
-print("Min Danger Level for Birds = ", bs_df["Danger Level"].min())
-print("Average Danger Level for Birds = ", "{:.2f}".format(bs_df["Danger Level"].mean()))
-print("Amount of Birds = ", len(bs_df))
-os.remove("output_birds.csv")
-print()
-
-m_df = pd.read_csv(r'/Users/aksheydeokule/Documents/EcoData S2/Climate Modeler/output_mammals.csv')
-m_df = m_df[:29] 
-print("Mammals: ")
-print("======== ")
-print(m_df[["Common Name", "Scientific Name", "Danger Level"]].head())
-print("Max Danger Level for Mammals = ", m_df["Danger Level"].max())
-print("Min Danger Level for Mammals = ", m_df["Danger Level"].min())
-print("Average Danger Level for Mammals = ", "{:.2f}".format(m_df["Danger Level"].mean()))
-print("Amount of Mammals = ", len(m_df))
-os.remove("output_mammals.csv")
-print()
-
-ar_df = pd.read_csv(r'/Users/aksheydeokule/Documents/EcoData S2/Climate Modeler/output_amphibianreptiles.csv')
-ar_df = ar_df[:14] 
-print("Amphibians/Reptiles: ")
-print("==================== ")
-print(ar_df[["Common Name", "Scientific Name", "Danger Level"]].head())
-print("Max Danger Level for A/R = ", m_df["Danger Level"].max())
-print("Min Danger Level for A/R = ", m_df["Danger Level"].min())
-print("Average Danger Level for A/R = ", "{:.2f}".format(ar_df["Danger Level"].mean()))
-print("Amount of A/R = ", len(ar_df))
-os.remove("output_amphibianreptiles.csv")
-print()
-
-f_df = pd.read_csv(r'/Users/aksheydeokule/Documents/EcoData S2/Climate Modeler/output_fishs.csv')
-f_df = f_df[:58] 
-print("Fish: ")
-print("===== ")
-print(f_df[["Common Name", "Scientific Name", "Danger Level"]].head())
-print("Max Danger Level for Fish = ", f_df["Danger Level"].max())
-print("Min Danger Level for Fish = ", f_df["Danger Level"].min())
-print("Average Danger Level for Fish = ", "{:.2f}".format(f_df["Danger Level"].mean()))
-print("Amount of Fish = ", len(f_df))
-os.remove("output_fishs.csv")
-print() 
+from climate_modeler import SHEETS, print_summary
 
 
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Print danger-level summaries")
+    parser.add_argument(
+        "--data-dir",
+        type=Path,
+        default=None,
+        help="Directory with output_*.csv (default: repo root or $DATA_DIR).",
+    )
+    parser.add_argument(
+        "--keep-output",
+        action="store_true",
+        help="Do not delete output_*.csv after printing.",
+    )
+    args = parser.parse_args()
+
+    if args.data_dir is not None:
+        data_dir = args.data_dir.resolve()
+    elif os.environ.get("DATA_DIR"):
+        data_dir = Path(os.environ["DATA_DIR"]).resolve()
+    else:
+        data_dir = Path(__file__).resolve().parent
+
+    frames = {}
+    for key, (_infile, outfile, nrows) in SHEETS.items():
+        path = data_dir / outfile
+        if not path.is_file():
+            raise SystemExit(
+                f"Missing {path}. Run sheet_analyzer.py or climate_modeler.py first."
+            )
+        df = pd.read_csv(path)
+        frames[key] = df[:nrows]
+
+    print_summary(frames)
+
+    if not args.keep_output:
+        for _key, (_infile, outfile, _nrows) in SHEETS.items():
+            path = data_dir / outfile
+            if path.is_file():
+                path.unlink()
+
+
+if __name__ == "__main__":
+    main()
