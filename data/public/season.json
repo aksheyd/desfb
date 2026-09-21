@@ -148,5 +148,5 @@
       "state": ""
     }
   ],
-  "source": "data/BirdSheet.csv (USFWS ServCat bird checklist 2008)"
+  "source": "data/source/BirdSheet.csv (USFWS ServCat bird checklist 2008)"
 }

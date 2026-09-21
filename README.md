@@ -1,47 +1,38 @@
-# desfb — Don Edwards SF Bay NWR companion
+# desfb — Don Edwards SF Bay NWR visitor companion
 
-Small visit-oriented site and data sync for
+Static [GitHub Pages](https://aksheyd.github.io/desfb/) site for
 [Don Edwards San Francisco Bay National Wildlife Refuge](https://www.fws.gov/refuge/don-edwards-san-francisco-bay)
-(the nation’s first urban NWR, South Bay tidal marsh & salt ponds).
+(South Bay tidal marsh & salt ponds). Unofficial visit companion — not an FWS product.
 
-**Live site:** [https://aksheyd.github.io/desfb/](https://aksheyd.github.io/desfb/)
+**Live:** [https://aksheyd.github.io/desfb/](https://aksheyd.github.io/desfb/)
 
-Built by Akshey Deokule (Michigan EcoData roots). The repo is public so GitHub Pages can serve the site.
+## What the site shows
 
-## What’s on the site
-
-1. **About the park** — short visitor intro + FWS link  
-2. **Today strip** — Alviso tides (NOAA CO-OPS `9414551`) + NWS forecast near `37.46, -121.97`  
-3. **Seasonal highlights** — ~15–20 birds from the USFWS checklist by rough season  
-4. **Featured species** — Ridgway’s / Clapper rail, salt-marsh harvest mouse, western snowy plover  
-5. **How to visit** — Alviso pointer + official refuge page  
+1. **Today** — Alviso tides (NOAA CO-OPS `9414551`) + NWS forecast near `37.46, −121.97`
+2. **About the park** — short visitor intro + official FWS link
+3. **Seasonal highlights** — birds from the USFWS 2008 checklist by rough season
+4. **Featured species** — Ridgway’s rail, salt-marsh harvest mouse, western snowy plover
+5. **How to visit** — Alviso pointer + refuge page
 
 ## Layout
 
 ```
-site/                      # static Pages app
-  index.html
-  styles.css
-  app.js                   # fetches data/public/*.json
-data/public/               # committed JSON consumed by the site
-  today.json
-  season.json
-  featured.json
-  meta.json
-scripts/sync_today.py      # CO-OPS + NWS + season/featured builders
+site/                 # static Pages UI (index.html, app.js, styles.css, logo.jpg)
+data/public/          # committed JSON the site loads (relative data/public/*.json)
+data/source/          # slim bird/mammal CSVs used to rebuild season & featured
+scripts/sync_today.py # stdlib-only: CO-OPS + NWS + season/featured builders
 .github/workflows/
-  pages.yml                # assemble site + data/public → GitHub Pages
-  sync-data.yml            # daily cron + manual dispatch
+  pages.yml           # assemble site + data/public → GitHub Pages
+  sync-data.yml       # daily cron + workflow_dispatch
 ```
+
+No pip packages: `sync_today.py` uses the Python 3 standard library only.
 
 ## Daily sync
 
 - Workflow: `.github/workflows/sync-data.yml`
-- Schedule: `0 14 * * *` (14:00 UTC) plus **workflow_dispatch**
-- Writes `data/public/*.json`; commits only when content changes (`chore(data): daily public JSON sync`)
-- NWS requests use User-Agent `desfb (https://github.com/aksheyd/desfb)`
-
-Re-run manually:
+- Schedule: `0 14 * * *` (14:00 UTC ≈ 07:00 PT) plus **workflow_dispatch**
+- Writes `data/public/*.json`; commits only when content changes
 
 ```bash
 gh workflow run sync-data.yml --repo aksheyd/desfb
@@ -57,30 +48,3 @@ mkdir -p /tmp/desfb-site/data && cp -a site/. /tmp/desfb-site/ && cp -a data/pub
 python3 -m http.server 8080 --directory /tmp/desfb-site
 # open http://127.0.0.1:8080/
 ```
-
-## Optional: climate modeler & explore dashboard
-
-This repo still contains the original EcoData **toy** climate / Danger Level heuristic and a local Flask explore UI. They are **not** part of the public Pages site.
-
-```bash
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-python refresh_data.py          # USFWS ServCat birds + bundled taxa
-python climate_modeler.py --temp 60
-python dashboard.py             # http://127.0.0.1:5050
-```
-
-**This is a toy heuristic, not a scientific climate or extinction model.**
-
-### Data sources (inventory tooling)
-
-| Layer | What it is |
-|-------|------------|
-| **Default live refresh** | USFWS ServCat **2008 bird checklist PDF** ([ServCat DownloadFile/800](https://ecos.fws.gov/ServCat/DownloadFile/800?Reference=721)) parsed with `pdftotext -bbox`, plus mammals / amphibians-reptiles / fish from `data/bundled/` |
-| `data/bundled/*.csv` | Offline EcoData-era refuge tables |
-| `data/*.csv` (active) | Working tables used by CLI / dashboard / public JSON builders |
-| Optional `--inat` | iNaturalist place `50136` (observation-based, incomplete) |
-
-The USFWS IRIS NWRSpecies API returns **HTTP 404** as of 2026 (retired). This project does not call it.
-
-See [docs/SAMPLE_RUN.md](docs/SAMPLE_RUN.md) and [docs/DASHBOARD.md](docs/DASHBOARD.md).

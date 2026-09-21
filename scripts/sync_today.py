@@ -14,7 +14,7 @@ from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / "data" / "public"
-DATA = ROOT / "data"
+SOURCE = ROOT / "data" / "source"
 
 STATION = "9414551"  # Alviso Slough / Coyote Creek area (CO-OPS)
 LAT, LON = 37.46, -121.97
@@ -150,9 +150,9 @@ def fetch_forecast() -> dict:
 
 
 def _read_csv(name: str) -> list[dict]:
-    path = DATA / name
+    path = SOURCE / name
     if not path.is_file():
-        path = DATA / "bundled" / name
+        raise FileNotFoundError(f"Missing species source CSV: {path}")
     rows: list[dict] = []
     with path.open(newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
@@ -239,48 +239,18 @@ def build_season(season: str | None = None) -> dict:
             "(abundance codes a/c/u by Spring–Summer–Fall–Winter). Not a live eBird feed."
         ),
         "highlights": highlights,
-        "source": "data/BirdSheet.csv (USFWS ServCat bird checklist 2008)",
+        "source": "data/source/BirdSheet.csv (USFWS ServCat bird checklist 2008)",
     }
 
 
 def _find_row(sheet: str, match_names: tuple[str, ...]) -> dict | None:
     rows = _read_csv(sheet)
-    # Also try bundled for listing codes
-    bundled = []
-    bpath = DATA / "bundled" / sheet
-    if bpath.is_file() and bpath != DATA / sheet:
-        bundled = _read_csv(f"bundled/{sheet}") if False else []
-        try:
-            with bpath.open(newline="", encoding="utf-8") as f:
-                for row in csv.DictReader(f):
-                    cleaned = {
-                        (k or "").lstrip("\ufeff").strip(): (v or "").strip()
-                        for k, v in row.items()
-                        if k is not None
-                    }
-                    if "Scientific Name" in cleaned:
-                        cleaned["Scientific Name"] = re.sub(
-                            r"\s+", " ", cleaned["Scientific Name"]
-                        ).strip()
-                    if "Common Name" in cleaned:
-                        cleaned["Common Name"] = re.sub(
-                            r"\s+", " ", cleaned["Common Name"]
-                        ).strip()
-                    bundled.append(cleaned)
-        except OSError:
-            bundled = []
 
     def match(row: dict) -> bool:
         cn = (row.get("Common Name") or "").lower()
         return any(m.lower() in cn or cn in m.lower() for m in match_names)
 
-    primary = next((r for r in rows if match(r)), None)
-    secondary = next((r for r in bundled if match(r)), None)
-    if not primary and not secondary:
-        return None
-    out = dict(secondary or {})
-    out.update({k: v for k, v in (primary or {}).items() if v})
-    return out
+    return next((r for r in rows if match(r)), None)
 
 
 def build_featured() -> dict:
