@@ -1,5 +1,5 @@
 {
-  "synced_at": "2026-09-21T19:00:02Z",
+  "synced_at": "2026-09-22T17:51:37Z",
   "timezone": "America/Los_Angeles",
   "season": "fall",
   "tides": {
@@ -9,23 +9,23 @@
     "units": "ft",
     "predictions": [
       {
-        "time": "2026-09-21 04:57",
-        "height_ft": 0.53,
+        "time": "2026-09-22 05:39",
+        "height_ft": 0.38,
         "type": "low"
       },
       {
-        "time": "2026-09-21 11:03",
-        "height_ft": 7.69,
+        "time": "2026-09-22 11:29",
+        "height_ft": 7.94,
         "type": "high"
       },
       {
-        "time": "2026-09-21 17:09",
-        "height_ft": 2.91,
+        "time": "2026-09-22 17:50",
+        "height_ft": 2.52,
         "type": "low"
       },
       {
-        "time": "2026-09-21 21:23",
-        "height_ft": 8.84,
+        "time": "2026-09-22 22:16",
+        "height_ft": 9.06,
         "type": "high"
       }
     ],
@@ -39,70 +39,70 @@
     "state": "CA",
     "periods": [
       {
-        "name": "This Afternoon",
-        "startTime": "2026-09-21T12:00:00-07:00",
+        "name": "Today",
+        "startTime": "2026-09-22T10:00:00-07:00",
         "isDaytime": true,
-        "temperature": 74,
+        "temperature": 75,
         "temperatureUnit": "F",
-        "windSpeed": "3 to 12 mph",
-        "windDirection": "NW",
+        "windSpeed": "1 to 10 mph",
+        "windDirection": "WNW",
         "shortForecast": "Sunny",
-        "detailedForecast": "Sunny. High near 74, with temperatures falling to around 71 in the afternoon. Northwest wind 3 to 12 mph, with gusts as high as 18 mph."
+        "detailedForecast": "Sunny. High near 75, with temperatures falling to around 73 in the afternoon. West northwest wind 1 to 10 mph."
       },
       {
         "name": "Tonight",
-        "startTime": "2026-09-21T18:00:00-07:00",
-        "isDaytime": false,
-        "temperature": 56,
-        "temperatureUnit": "F",
-        "windSpeed": "3 to 9 mph",
-        "windDirection": "NNE",
-        "shortForecast": "Partly Cloudy",
-        "detailedForecast": "Partly cloudy, with a low around 56. North northeast wind 3 to 9 mph."
-      },
-      {
-        "name": "Tuesday",
-        "startTime": "2026-09-22T06:00:00-07:00",
-        "isDaytime": true,
-        "temperature": 76,
-        "temperatureUnit": "F",
-        "windSpeed": "1 to 10 mph",
-        "windDirection": "WSW",
-        "shortForecast": "Mostly Sunny",
-        "detailedForecast": "Mostly sunny. High near 76, with temperatures falling to around 74 in the afternoon. West southwest wind 1 to 10 mph."
-      },
-      {
-        "name": "Tuesday Night",
         "startTime": "2026-09-22T18:00:00-07:00",
         "isDaytime": false,
         "temperature": 56,
         "temperatureUnit": "F",
-        "windSpeed": "0 to 7 mph",
-        "windDirection": "W",
+        "windSpeed": "0 to 8 mph",
+        "windDirection": "NNW",
         "shortForecast": "Mostly Clear",
-        "detailedForecast": "Mostly clear, with a low around 56. West wind 0 to 7 mph."
+        "detailedForecast": "Mostly clear, with a low around 56. North northwest wind 0 to 8 mph."
       },
       {
         "name": "Wednesday",
         "startTime": "2026-09-23T06:00:00-07:00",
         "isDaytime": true,
-        "temperature": 83,
+        "temperature": 82,
         "temperatureUnit": "F",
-        "windSpeed": "0 to 9 mph",
-        "windDirection": "S",
-        "shortForecast": "Sunny",
-        "detailedForecast": "Sunny, with a high near 83. South wind 0 to 9 mph."
+        "windSpeed": "0 to 8 mph",
+        "windDirection": "SW",
+        "shortForecast": "Mostly Sunny",
+        "detailedForecast": "Mostly sunny. High near 82, with temperatures falling to around 80 in the afternoon. Southwest wind 0 to 8 mph."
       },
       {
         "name": "Wednesday Night",
         "startTime": "2026-09-23T18:00:00-07:00",
         "isDaytime": false,
-        "temperature": 60,
+        "temperature": 59,
         "temperatureUnit": "F",
-        "windSpeed": "0 to 9 mph",
-        "windDirection": "SW",
+        "windSpeed": "0 to 8 mph",
+        "windDirection": "WSW",
         "shortForecast": "Mostly Clear",
-        "detailedForecast": "Mostly clear, with a low around 60."
+        "detailedForecast": "Mostly clear, with a low around 59. West southwest wind 0 to 8 mph."
+      },
+      {
+        "name": "Thursday",
+        "startTime": "2026-09-24T06:00:00-07:00",
+        "isDaytime": true,
+        "temperature": 82,
+        "temperatureUnit": "F",
+        "windSpeed": "1 to 12 mph",
+        "windDirection": "WSW",
+        "shortForecast": "Sunny",
+        "detailedForecast": "Sunny, with a high near 82. West southwest wind 1 to 12 mph, with gusts as high as 20 mph."
+      },
+      {
+        "name": "Thursday Night",
+        "startTime": "2026-09-24T18:00:00-07:00",
+        "isDaytime": false,
+        "temperature": 59,
+        "temperatureUnit": "F",
+        "windSpeed": "2 to 12 mph",
+        "windDirection": "W",
+        "shortForecast": "Partly Cloudy",
+        "detailedForecast": "Partly cloudy, with a low around 59."
       }
     ],
     "source": "https://www.weather.gov/"
