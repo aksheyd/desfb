@@ -1,0 +1,12 @@
+# Python
+.venv/
+__pycache__/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+*.swp
+
+# Build output
+dist/

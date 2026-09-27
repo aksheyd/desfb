@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Birds at Don Edwards SF Bay Refuge, month by month</title>
+<meta name="description" content="When to see each of the <!--COUNT--> birds and mammals at Don Edwards San Francisco Bay National Wildlife Refuge, month by month, from public eBird and iNaturalist sightings.">
+<link rel="canonical" href="https://aksheyd.github.io/desfb/">
+<link rel="alternate" type="application/json" href="data/species.json" title="Monthly sightings for every species">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#fbfaf6">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Don Edwards SF Bay Refuge, an unofficial guide">
+<meta property="og:title" content="Who's at the refuge, and when">
+<meta property="og:description" content="Month by month, the <!--COUNT--> birds and mammals of Don Edwards San Francisco Bay National Wildlife Refuge, from public sightings.">
+<meta property="og:url" content="https://aksheyd.github.io/desfb/">
+<meta property="og:image" content="https://aksheyd.github.io/desfb/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A chart of <!--COUNT--> species as lines across twelve months, darker when seen more often, with an orange line marking today.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23fbfaf6'/%3E%3Cg fill='%230f4c46'%3E%3Crect x='6' y='8' width='20' height='2.5' rx='1'/%3E%3Crect x='6' y='13' width='20' height='2.5' rx='1' opacity='.7'/%3E%3Crect x='6' y='18' width='20' height='2.5' rx='1' opacity='.45'/%3E%3Crect x='6' y='23' width='20' height='2.5' rx='1' opacity='.25'/%3E%3C/g%3E%3Crect x='19' y='5' width='2' height='22' fill='%23d9480f'/%3E%3C/svg%3E">
+<script type="application/ld+json">/*JSONLD*/</script>
+<style>
+:root{--paper:#fbfaf6;--ink:#1c2b27;--ink2:#3f4a45;--muted:#6b675d;--rule:#ddd8cc;--empty:#ebe7dd;--today:#d9480f;--today-text:#c2410c;--gap:48px;
+--serif:Georgia,'Iowan Old Style','Times New Roman',serif;
+--sans:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI Variable Display","Segoe UI",Helvetica,"Apple Color Emoji","Noto Sans Arabic","Noto Sans Hebrew",Arial,sans-serif,"Segoe UI Emoji","Segoe UI Symbol";
+--ease:cubic-bezier(.23,1,.32,1)}
+*{box-sizing:border-box}
+html{color-scheme:light}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/24px var(--sans);-webkit-font-smoothing:antialiased}
+[hidden]{display:none!important}
+button{font:inherit;color:inherit}
+.page{max-width:1180px;margin:0 auto;padding:48px clamp(20px,4vw,48px) 96px}
+.cols{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);column-gap:var(--gap)}
+
+.head{align-items:end;margin-bottom:36px}
+.site{display:flex;flex-wrap:wrap;gap:0 12px;margin:0 0 24px;font-size:13.5px;line-height:20px;color:var(--ink2)}
+.site span{color:var(--muted)}
+h1{font-family:var(--serif);font-weight:normal;font-size:clamp(2.3rem,5vw,3.6rem);line-height:1.04;line-height:round(1.04em,1px);letter-spacing:-.02em;margin:0 0 16px;text-wrap:balance}
+.dek{font:18px/27px var(--serif);color:var(--ink2);max-width:40rem;margin:0;text-wrap:pretty}
+.dek + .dek{margin-top:12px}
+.context{font-size:14px;line-height:20px;color:var(--ink2)}
+.context h2{font:normal 22px/28px var(--serif);color:var(--ink);margin:0 0 4px}
+.context h2 .yr{color:var(--muted)}
+.context h2 .now{color:var(--today-text)}
+.context p{margin:0 0 8px}
+.moves{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0}
+.moves dt{font-weight:600;color:var(--ink)}
+.moves dd{margin:0}
+.link{background:none;border:0;padding:0;cursor:pointer;text-align:left;line-height:inherit;text-decoration:underline;text-decoration-color:#c9c3b5;text-underline-offset:3px;transition:text-decoration-color .15s var(--ease)}
+.link:hover{text-decoration-color:var(--ink)}
+.link:focus-visible,.months button:focus-visible,.x:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.back{display:inline-block;margin-top:12px;color:var(--ink)}
+
+.fig{position:relative;padding-bottom:24px;line-height:20px}
+.months{grid-row:1;grid-column:1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));align-self:end;margin-bottom:4px}
+.months button{background:none;border:0;padding:6px 0;font-size:11.5px;line-height:16px;color:var(--muted);cursor:pointer;border-radius:4px;transition:background-color .15s var(--ease),color .15s var(--ease)}
+@media (hover:hover) and (pointer:fine){.months button:hover{color:var(--ink);background:rgb(28 43 39 / .05)}}
+.months button[aria-pressed=true]{color:var(--ink);font-weight:600;background:rgb(28 43 39 / .07)}
+.find{grid-row:1;grid-column:2;align-self:end;margin-bottom:4px}
+.find input{display:block;width:100%;font:16px/20px var(--sans);padding:7px 10px;border:1px solid #bdb6a6;border-radius:6px;background:#fff;color:var(--ink)}
+.find input::placeholder{color:#7a7569}
+.find input:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.find p{margin:4px 0 0;min-height:16px;font-size:12.5px;line-height:16px;color:var(--muted)}
+
+.note{grid-column:2;grid-row:var(--r);position:relative;margin-bottom:20px}
+.note::before,.detail::before{content:'';position:absolute;left:calc(8px - var(--gap));width:calc(var(--gap) - 20px);height:1px}
+.note::before{top:12px;background:#b9b3a6}
+.note h3{font:normal 18px/24px var(--serif);margin:0}
+.note h3 span{font:13px/24px var(--sans);color:var(--muted);margin-left:6px}
+.note p{margin:4px 0 6px;font-size:14px;line-height:20px;color:var(--muted);text-wrap:pretty}
+.note .link{display:block;font-size:13px;line-height:20px;color:var(--ink2)}
+
+.band{grid-column:1;grid-row:var(--r);margin-bottom:20px;cursor:zoom-in}
+.band.open{grid-column:1/-1;grid-row:calc(var(--r) + 1);display:grid;grid-template-columns:subgrid;grid-auto-rows:14px;row-gap:2px;align-items:center;cursor:pointer}
+.ln{height:2px;margin-bottom:1px;background-color:var(--empty);transition:opacity .2s var(--ease)}
+.nm{display:none}
+.band.open .ln{grid-column:1;height:12px;margin:0;border-radius:2px}
+.band.open .nm{display:block;grid-column:2;font-size:12.5px;line-height:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink2);transition:opacity .2s var(--ease)}
+.ln.off,.nm.off{opacity:.16}
+.ln.sel{outline:1px solid var(--ink);outline-offset:1px}
+.nm.sel{color:var(--ink);font-weight:600}
+
+.today,.mcol{position:absolute;top:var(--top,64px);bottom:24px;pointer-events:none}
+.today{width:2px;margin-left:-1px;background:var(--today);z-index:1}
+.today-label{position:absolute;bottom:2px;margin-left:6px;font-size:11.5px;font-weight:600;line-height:16px;color:var(--today-text);pointer-events:none;white-space:nowrap}
+.mcol{background:rgb(28 43 39 / .07);border-radius:2px}
+.zoomed .page{cursor:zoom-out;padding-bottom:calc(50vh + var(--card-height,480px) / 2)}
+.zoomed .note,.zoomed .context,.zoomed .find{cursor:auto}
+.tip{position:fixed;z-index:10;pointer-events:none;padding:2px 8px;border-radius:4px;background:var(--paper);box-shadow:0 0 0 1px rgb(28 43 39 / .1),0 2px 8px rgb(28 43 39 / .08);font-size:13px;line-height:20px;white-space:nowrap}
+
+.detail{position:absolute;z-index:3;display:flex;flex-direction:column;width:calc((100% - var(--gap)) / 3);left:calc((100% - var(--gap)) * 2 / 3 + var(--gap));padding:16px;background:var(--paper);border-radius:8px;box-shadow:0 0 0 1px rgb(28 43 39 / .08),0 8px 24px rgb(28 43 39 / .12);cursor:auto;animation:pop .18s var(--ease)}
+@keyframes pop{from{opacity:0;transform:translateY(4px) scale(.98)}to{opacity:1;transform:none}}
+.detail::before{top:var(--pin,8px);background:var(--ink)}
+.photo{position:relative}
+.photo img,.nophoto{display:block;width:100%;aspect-ratio:3/2;border-radius:4px;background:var(--empty)}
+.photo img{height:auto;object-fit:cover;transition:opacity .15s var(--ease)}
+.photo img.loading{opacity:0}
+.nophoto{display:grid;place-content:center;justify-items:center;gap:4px;padding:16px 24px;text-align:center;font-size:13px;line-height:20px;color:var(--ink2)}
+.nophoto p{margin:0;text-wrap:balance}
+.nophoto a{color:var(--ink);text-underline-offset:3px}
+.x{position:absolute;top:8px;right:8px;width:32px;height:32px;display:grid;place-items:center;border:0;border-radius:50%;background:var(--paper);box-shadow:0 0 0 1px rgb(28 43 39 / .12),0 1px 3px rgb(28 43 39 / .12);color:var(--ink);cursor:pointer;transition:background-color .15s var(--ease)}
+.x::before{content:'';position:absolute;inset:-6px}
+.x svg,.nav svg{flex:none;width:16px;height:16px}
+@media (hover:hover) and (pointer:fine){.x:hover{background:#f1efe8}}
+.nav{display:flex;gap:8px;margin-top:auto}
+.nav button{flex:1 1 0;min-width:0;display:flex;align-items:center;gap:6px;height:32px;padding:0 10px;border:0;border-radius:6px;background:var(--empty);color:var(--ink);font-size:13px;line-height:20px;cursor:pointer;transition:background-color .15s var(--ease)}
+.nav .next{justify-content:flex-end}
+.nav button span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (hover:hover) and (pointer:fine){.nav button:not(:disabled):hover{background:#e2ddd1}}
+.nav button:not(:disabled):active{background:#d8d2c4}
+.nav button:disabled{visibility:hidden}
+.nav button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.detail h3{font:normal 20px/24px var(--serif);margin:12px 0 0;text-wrap:balance}
+.detail .sci,.detail .when,.detail .meta{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.detail .sci{font:italic 14px/20px var(--serif);color:var(--muted);margin:0}
+.detail .was{font-size:13px;line-height:20px;color:var(--muted);margin:0}
+.detail .when{font-size:14px;line-height:20px;margin:12px 0 8px}
+.strip{position:relative;height:8px;border-radius:2px;background-color:var(--empty)}
+.strip i{position:absolute;top:-3px;bottom:-3px;width:2px;margin-left:-1px;background:var(--today)}
+.ticks{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));margin-top:4px;font-size:10px;line-height:14px;color:var(--muted);text-align:center}
+.detail .meta{font-size:13px;line-height:20px;color:var(--muted);margin:12px 0 0}
+.credit{font-size:11px;line-height:16px;color:var(--muted);margin:8px 0 16px;overflow-wrap:anywhere}
+.credit a{color:var(--ink);text-underline-offset:3px}
+
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.foot{margin-top:48px;padding-top:24px;border-top:1px solid var(--rule);font-size:13px;line-height:20px;color:var(--muted)}
+.foot p{margin:0 0 8px;text-wrap:pretty}
+.foot ul{margin:0 0 8px;padding:0;list-style:none}
+.foot a{color:var(--ink2);text-underline-offset:3px}
+
+@media (max-width:760px){
+ .cols{grid-template-columns:minmax(0,1fr)}
+ .head{row-gap:24px}
+ .find{grid-row:1;grid-column:1;margin-bottom:24px}
+ .months{grid-row:2}
+ .months button{min-height:44px}
+ .note,.band,.band.open{grid-row:auto;grid-column:1}
+ .note{margin-bottom:8px}
+ .note::before,.today,.today-label,.mcol{display:none}
+ .band.open{grid-template-columns:minmax(0,1fr) 8.5rem;column-gap:12px}
+ .band.open .ln{grid-column:1}
+ .band.open .nm{grid-column:2}
+ .link{position:relative}
+ .link::before{content:'';position:absolute;inset:-12px -2px}
+ .x::before{inset:-8px}
+ .nav button{height:44px}
+ .foot{row-gap:8px}
+ .detail{position:fixed;left:0;right:0;bottom:0;top:auto!important;width:auto;max-height:72vh;overflow:auto;overscroll-behavior:contain;border-radius:14px 14px 0 0;animation:sheet .22s var(--ease);padding-bottom:calc(16px + env(safe-area-inset-bottom))}
+ .detail::before{display:none}
+}
+@keyframes sheet{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="page">
+  <header class="head cols">
+    <div>
+      <p class="site">Don Edwards San Francisco Bay National Wildlife Refuge<span>An unofficial guide</span></p>
+      <h1>Who's at the refuge, and when</h1>
+      <p class="dek">Don Edwards San Francisco Bay National Wildlife Refuge protects the marshes and old salt ponds at the south end of San Francisco Bay. Some birds live here year-round. Many more stop on their way up and down the coast.</p>
+      <p class="dek">Using public sightings from eBird, iNaturalist and others, we counted how many times each of the <!--COUNT--> birds and mammals on the refuge's checklist has been reported here in each month. Each line below is one species, darker in the months it's seen most. Click a band or a month to look closer.</p>
+    </div>
+    <section class="context" aria-live="polite" aria-label="This month at the refuge"><!--CONTEXT--></section>
+  </header>
+  <section class="fig cols" aria-labelledby="fig-title">
+    <h2 class="sr-only" id="fig-title">All <!--COUNT--> species, month by month</h2>
+    <div class="months" role="group" aria-label="Show who is here in a month"><!--MONTHS--></div>
+    <div class="find"><input type="search" placeholder="Find a species" aria-label="Find a species" autocomplete="off" spellcheck="false"><p aria-live="polite"></p></div>
+<!--FIG-->
+  </section>
+  <footer class="foot cols"><!--FOOTER--></footer>
+</main>
+<div class="tip" hidden></div>
+<script id="data" type="application/json">/*DATA*/</script>
+<script>
+const D = JSON.parse(document.getElementById('data').textContent);
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const LINE = '15 76 70';
+const PITCH = 16;
+const WELL_SEEN = 0.6;
+const MAX = Math.max(...D.species.flatMap((s) => s.m));
+const fig = document.querySelector('.fig');
+const monthsEl = fig.querySelector('.months');
+const input = fig.querySelector('.find input');
+const findHint = fig.querySelector('.find p');
+const context = document.querySelector('.context');
+const tip = document.querySelector('.tip');
+const narrow = matchMedia('(max-width: 760px)');
+const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+const state = { open: new Set(), month: null, query: '', sel: null };
+const lines = [];
+const names = [];
+const groupOf = [];
+let detail = null;
+let cardHeight = 0;
+const icon = (d) => `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="${d}" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const ICON = { up: icon('M8 13V3M3.5 7.5 8 3l4.5 4.5'), down: icon('M8 3v10M3.5 8.5 8 13l4.5-4.5'), close: icon('M4 4l8 8M12 4l-8 8') };
+const preloaded = new Set();
+
+function h(tag, props = {}, ...kids) {
+  const el = Object.assign(document.createElement(tag), props);
+  for (const k of kids.flat(2)) if (k != null && k !== false) el.append(k);
+  return el;
+}
+
+function gradient(ms) {
+  const shade = ms.map((n) => Math.log1p(n) / Math.log1p(MAX));
+  const wrap = (shade[0] + shade[11]) / 2;
+  const stop = (a, at) => `rgb(${LINE} / ${a.toFixed(3)}) ${at.toFixed(2)}%`;
+  return `linear-gradient(to right, ${[stop(wrap, 0), ...shade.map((a, i) => stop(a, ((i + 0.5) / 12) * 100)), stop(wrap, 100)].join(', ')})`;
+}
+
+const total = (s) => s.m.reduce((a, b) => a + b, 0);
+const figWidth = (fraction) => `calc((100% - var(--gap)) * ${(2 / 3) * fraction})`;
+const chartTop = () => monthsEl.offsetTop + monthsEl.offsetHeight + 4;
+const visibleOrder = () => D.groups.flatMap((g) => g.ids.filter((i) => !lines[i].hidden));
+const isOpen = (g) => g.band.classList.contains('open');
+
+function nameList(ids, k = 3) {
+  const shown = ids.slice(0, k);
+  const out = [];
+  shown.forEach((i, j) => {
+    if (j) out.push(j === shown.length - 1 && ids.length <= k ? ' and ' : ', ');
+    out.push(h('button', { type: 'button', className: 'link', textContent: D.species[i].n, onclick: () => select(i) }));
+  });
+  if (ids.length > k) out.push(` and ${ids.length - k} more`);
+  return out;
+}
+
+function bestPhrase(s) {
+  const n = total(s);
+  if (!n) return 'No sightings reported here yet.';
+  if (n < D.seldom) return `Seldom seen, with fewer than ${D.seldom} sightings.`;
+  const good = s.p.map((v) => v >= WELL_SEEN);
+  if (good.every(Boolean)) return 'Seen in good numbers all year.';
+  let best = [0, 0];
+  for (let st = 0; st < 12; st++) {
+    if (!good[st] || good[(st + 11) % 12]) continue;
+    let len = 0;
+    while (len < 12 && good[(st + len) % 12]) len++;
+    if (len > best[1]) best = [st, len];
+  }
+  const [first, length] = best;
+  const last = (first + length - 1) % 12;
+  return first === last ? `Seen most in ${MONTHS[first]}.` : `Seen most from ${MONTHS[first]} to ${MONTHS[last]}.`;
+}
+
+function renderContext() {
+  const m = state.month ?? D.now;
+  const info = D.months[m];
+  const arr = state.month == null ? D.nowArr : info.arr;
+  const dep = state.month == null ? D.nowDep : info.dep;
+  const most = info.seen === D.maxSeen ? ', more than in any other month' : '';
+  const heading = state.month == null
+    ? h('h2', {}, h('span', { className: 'yr', textContent: String(D.nowYear) }), ' ', h('span', { className: 'now', textContent: D.nowLabel }))
+    : h('h2', { textContent: MONTHS[m] });
+  context.replaceChildren(...[
+    heading,
+    h('p', { textContent: `${info.seen} species are seen here in ${MONTHS[m]}${most}.` }),
+    h('dl', { className: 'moves' },
+      arr.length ? [h('dt', { textContent: 'Arriving' }), h('dd', {}, nameList(arr))] : null,
+      dep.length ? [h('dt', { textContent: 'Leaving' }), h('dd', {}, nameList(dep))] : null),
+    state.month != null ? h('button', { type: 'button', className: 'link back', textContent: 'Back to today', onclick: () => setMonth(null) }) : null,
+  ].filter(Boolean));
+}
+
+function setToday(date) {
+  const m = date.getMonth();
+  const day = date.getDate();
+  const days = new Date(date.getFullYear(), m + 1, 0).getDate();
+  const arr = D.months[m].arr;
+  Object.assign(D, {
+    now: m,
+    today: (m + (day - 0.5) / days) / 12,
+    nowLabel: `${day <= 10 ? 'Early' : day <= 20 ? 'Mid' : 'Late'} ${MONTHS[m]}`,
+    nowArr: [...arr, ...D.months[(m + 1) % 12].arr.filter((i) => !arr.includes(i))],
+    nowDep: D.months[m].dep,
+  });
+  for (const el of fig.querySelectorAll('.today, .today-label')) el.style.left = figWidth(D.today);
+}
+
+monthsEl.querySelectorAll('button').forEach((b, i) => {
+  b.onclick = () => setMonth(state.month === i ? null : i);
+});
+
+for (const g of D.groups) {
+  g.note = fig.querySelector(`.note[data-group="${g.key}"]`);
+  g.band = fig.querySelector(`.band[data-group="${g.key}"]`);
+  g.btn = g.note.querySelector('.link');
+  g.btn.onclick = () => toggleGroup(g);
+  g.count = g.note.querySelector('h3 span');
+  g.sentenceEl = g.note.querySelector('p');
+  for (const ln of g.band.querySelectorAll('.ln')) {
+    lines[Number(ln.dataset.i)] = ln;
+    groupOf[Number(ln.dataset.i)] = g;
+  }
+  for (const nm of g.band.querySelectorAll('.nm')) names[Number(nm.dataset.i)] = nm;
+  g.hits = g.ids;
+}
+
+const mcol = fig.querySelector('.mcol');
+
+function layout() {
+  fig.style.setProperty('--top', `${chartTop()}px`);
+  positionDetail();
+}
+
+function syncZoom() {
+  document.documentElement.classList.toggle('zoomed', state.sel != null || state.open.size > 0);
+}
+
+function applyOpen() {
+  syncZoom();
+  for (const g of D.groups) {
+    const open = state.query ? g.hits.length > 0 : state.open.has(g.key);
+    g.band.classList.toggle('open', open);
+    g.btn.textContent = open ? 'Hide the names' : `Show all ${g.ids.length} names`;
+    g.btn.hidden = Boolean(state.query);
+    g.btn.setAttribute('aria-expanded', String(open));
+  }
+  layout();
+}
+
+function firstWithPhoto(g) {
+  const shown = g.ids.filter((i) => !lines[i].hidden);
+  return shown.find((i) => D.species[i].ph) ?? shown[0] ?? null;
+}
+
+function openGroup(g) {
+  state.open.add(g.key);
+  applyOpen();
+  select(firstWithPhoto(g));
+}
+
+function toggleGroup(g) {
+  if (!state.open.has(g.key)) {
+    openGroup(g);
+    return;
+  }
+  state.open.delete(g.key);
+  if (state.sel != null && groupOf[state.sel] === g) state.sel = null;
+  applyOpen();
+  renderDetail();
+}
+
+function zoomOut() {
+  if (state.sel == null && !state.open.size) return;
+  state.open.clear();
+  state.sel = null;
+  applyOpen();
+  renderDetail();
+}
+
+function step(dir, { focusButton = false } = {}) {
+  const order = visibleOrder();
+  const next = order[order.indexOf(state.sel) + dir];
+  if (next == null) return;
+  select(next, { instant: true });
+  if (focusButton) detail?.querySelector(dir < 0 ? '.nav .prev' : '.nav .next')?.focus({ preventScroll: true });
+}
+
+function applySearch() {
+  const q = state.query;
+  let count = 0;
+  for (const g of D.groups) {
+    g.hits = q ? g.ids.filter((i) => D.species[i].key.includes(q)) : g.ids;
+    const hit = new Set(g.hits);
+    for (const i of g.ids) {
+      lines[i].hidden = !hit.has(i);
+      names[i].hidden = !hit.has(i);
+    }
+    g.note.hidden = g.band.hidden = Boolean(q) && !g.hits.length;
+    g.count.textContent = q ? `${g.hits.length} of ${g.ids.length}` : String(g.ids.length);
+    g.sentenceEl.hidden = Boolean(q);
+    if (q) count += g.hits.length;
+  }
+  findHint.textContent = q ? (count ? `${count} species found` : 'No species by that name') : '';
+  if (state.sel != null && lines[state.sel].hidden) state.sel = null;
+  applyOpen();
+  renderDetail();
+}
+
+function setMonth(m) {
+  state.month = m;
+  monthsEl.querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-pressed', String(i === m)));
+  D.species.forEach((s, i) => {
+    const off = m != null && s.p[m] < D.present;
+    lines[i].classList.toggle('off', off);
+    names[i].classList.toggle('off', off);
+  });
+  mcol.hidden = m == null;
+  if (m != null) {
+    mcol.style.left = figWidth(m / 12);
+    mcol.style.width = figWidth(1 / 12);
+  }
+  renderContext();
+}
+
+function buildCard(s, i, groupTitle) {
+  const n = total(s);
+  const strip = h('div', { className: 'strip' }, h('i'));
+  strip.style.backgroundImage = gradient(s.m);
+  strip.firstChild.style.left = `${D.today * 100}%`;
+  const photos = s.u ? `${s.u}/browse_photos` : `https://www.inaturalist.org/search?q=${encodeURIComponent(s.n)}`;
+  let picture;
+  if (s.ph) {
+    picture = h('img', { src: s.ph, alt: s.n, width: 240, height: 160 });
+    if (!picture.complete) {
+      picture.classList.add('loading');
+      picture.onload = () => picture.classList.remove('loading');
+    }
+  } else {
+    picture = h('div', { className: 'nophoto' },
+      h('p', { textContent: 'No free-to-use photo of this one yet.' }),
+      h('a', { href: photos, target: '_blank', rel: 'noopener', textContent: 'See photos on iNaturalist' }));
+  }
+  const order = visibleOrder();
+  const at = order.indexOf(i);
+  const close = h('button', { type: 'button', className: 'x', innerHTML: ICON.close, onclick: () => select(null) });
+  close.setAttribute('aria-label', 'Close');
+  const neighbor = (dir) => {
+    const other = D.species[order[at + dir]];
+    const word = dir < 0 ? 'Previous' : 'Next';
+    const b = h('button', { type: 'button', className: dir < 0 ? 'prev' : 'next', disabled: !other, onclick: () => step(dir, { focusButton: true }),
+      innerHTML: dir < 0 ? ICON.up : ICON.down, title: other ? other.n : '' });
+    const label = h('span', { textContent: other ? other.n : word });
+    if (dir < 0) b.append(label);
+    else b.prepend(label);
+    b.setAttribute('aria-label', other ? `${word} species: ${other.n}` : `No ${word.toLowerCase()} species`);
+    return b;
+  };
+  const card = h('aside', { className: 'detail' },
+    h('div', { className: 'photo' }, picture, close),
+    h('h3', { textContent: s.n }),
+    h('p', { className: 'sci', textContent: s.s }),
+    s.f ? h('p', { className: 'was', textContent: `Listed as ${s.f} on the 2008 checklist` }) : null,
+    h('p', { className: 'when', textContent: bestPhrase(s) }),
+    strip,
+    h('div', { className: 'ticks' }, MONTHS.map((m) => h('span', { textContent: m[0] }))),
+    h('p', { className: 'meta', textContent: `${groupTitle} \u00b7 ${n ? `${n.toLocaleString()} sightings on record` : 'no sightings on record yet'}` }),
+    h('p', { className: 'credit' }, s.cr ? `Photo ${s.cr} \u00b7 ` : null,
+      s.u ? h('a', { href: s.u, target: '_blank', rel: 'noopener', textContent: 'iNaturalist page' }) : null),
+    h('nav', { className: 'nav' }, neighbor(-1), neighbor(1)),
+  );
+  card.querySelector('.nav').setAttribute('aria-label', 'Step through species');
+  card.setAttribute('aria-label', s.n);
+  return card;
+}
+
+function measureCardHeight() {
+  const longest = (key) => D.species.reduce((a, s) => ((s[key] || '').length > (a[key] || '').length ? s : a));
+  const busiest = D.species.reduce((a, s) => (total(s) > total(a) ? s : a));
+  const probe = { ...busiest, n: longest('n').n, s: longest('s').s, f: longest('f').f, cr: longest('cr').cr, ph: null };
+  const card = buildCard(probe, -1, 'Passing through');
+  card.style.visibility = 'hidden';
+  card.style.animation = 'none';
+  fig.append(card);
+  cardHeight = Math.ceil(card.offsetHeight / PITCH) * PITCH;
+  card.remove();
+  document.documentElement.style.setProperty('--card-height', `${cardHeight}px`);
+  if (detail) detail.style.minHeight = `${cardHeight}px`;
+}
+
+function preload(i) {
+  const order = visibleOrder();
+  const at = order.indexOf(i);
+  for (const d of [-2, -1, 1, 2]) {
+    const src = D.species[order[at + d]]?.ph;
+    if (src && !preloaded.has(src)) {
+      preloaded.add(src);
+      new Image().src = src;
+    }
+  }
+}
+
+function renderDetail() {
+  document.querySelectorAll('.sel').forEach((el) => el.classList.remove('sel'));
+  syncZoom();
+  if (state.sel == null) {
+    detail?.remove();
+    detail = null;
+    return;
+  }
+  const i = state.sel;
+  const card = buildCard(D.species[i], i, groupOf[i].title);
+  if (detail) {
+    detail.replaceChildren(...card.childNodes);
+    detail.setAttribute('aria-label', D.species[i].n);
+  } else {
+    detail = card;
+    fig.append(detail);
+  }
+  detail.style.minHeight = `${cardHeight}px`;
+  lines[i].classList.add('sel');
+  names[i].classList.add('sel');
+  positionDetail();
+  preload(i);
+}
+
+function positionDetail() {
+  if (!detail || state.sel == null) return;
+  if (narrow.matches) {
+    detail.style.top = '';
+    return;
+  }
+  const figTop = fig.getBoundingClientRect().top;
+  const band = groupOf[state.sel].band.getBoundingClientRect();
+  const row = names[state.sel].getBoundingClientRect();
+  const origin = band.top - figTop - 1;
+  const rowTop = row.top - figTop;
+  const floor = chartTop();
+  let top = Math.max(rowTop - 1, floor);
+  top = origin + Math.ceil((top - origin) / PITCH - 0.001) * PITCH;
+  detail.style.top = `${top}px`;
+  detail.style.setProperty('--pin', `${Math.round(rowTop + row.height / 2 - top)}px`);
+}
+
+function centerOnCard({ instant = false } = {}) {
+  if (!detail) return;
+  const behavior = instant || reduced.matches ? 'auto' : 'smooth';
+  if (narrow.matches) {
+    const r = lines[state.sel].getBoundingClientRect();
+    const room = innerHeight - detail.offsetHeight;
+    scrollTo({ top: Math.max(0, scrollY + r.top + r.height / 2 - room / 2), behavior });
+    return;
+  }
+  const figY = fig.getBoundingClientRect().top + scrollY;
+  scrollTo({ top: Math.max(0, figY + detail.offsetTop + detail.offsetHeight / 2 - innerHeight / 2), behavior });
+}
+
+function select(i, { instant = false } = {}) {
+  state.sel = i;
+  if (i != null && !isOpen(groupOf[i])) {
+    state.open.add(groupOf[i].key);
+    applyOpen();
+  }
+  renderDetail();
+  if (i != null) centerOnCard({ instant });
+}
+
+function speciesAt(e) {
+  const hit = e.target.closest('.ln, .nm');
+  if (hit) return Number(hit.dataset.i);
+  const band = e.target.closest('.band');
+  if (!band) return null;
+  let best = null;
+  let dist = Infinity;
+  for (const ln of band.querySelectorAll('.ln:not([hidden])')) {
+    const r = ln.getBoundingClientRect();
+    const d = Math.abs(r.top + r.height / 2 - e.clientY);
+    if (d < dist) {
+      dist = d;
+      best = Number(ln.dataset.i);
+    }
+  }
+  return best;
+}
+
+fig.addEventListener('pointermove', (e) => {
+  const overText = e.target.closest('.nm, .detail, .note');
+  const i = e.pointerType === 'mouse' && !overText ? speciesAt(e) : null;
+  if (i == null) {
+    tip.hidden = true;
+    return;
+  }
+  tip.textContent = D.species[i].n;
+  tip.hidden = false;
+  tip.style.left = `${e.clientX + 14}px`;
+  tip.style.top = `${e.clientY - 32}px`;
+});
+fig.addEventListener('pointerleave', () => { tip.hidden = true; });
+fig.addEventListener('click', (e) => {
+  if (e.target.closest('.detail, .note, .find, .months')) return;
+  const i = speciesAt(e);
+  if (i == null) return;
+  tip.hidden = true;
+  if (!isOpen(groupOf[i])) openGroup(groupOf[i]);
+  else select(state.sel === i ? null : i);
+});
+
+function setQuery(q) {
+  if (state.query && !q) state.sel = null;
+  state.query = q;
+  applySearch();
+}
+
+input.addEventListener('input', () => setQuery(input.value.trim().toLowerCase()));
+input.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    const first = D.groups.flatMap((g) => g.hits)[0];
+    if (state.query && first != null) select(first);
+  }
+  if (e.key === 'Escape' && input.value) {
+    e.stopPropagation();
+    input.value = '';
+    setQuery('');
+  }
+});
+
+const STEP_KEYS = { ArrowDown: 1, ArrowRight: 1, s: 1, d: 1, ArrowUp: -1, ArrowLeft: -1, w: -1, a: -1 };
+
+document.addEventListener('keydown', (e) => {
+  if (e.target === input || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key === 'Escape') {
+    if (state.sel != null) select(null);
+    else if (state.month != null) setMonth(null);
+  }
+  const dir = STEP_KEYS[e.key.length === 1 ? e.key.toLowerCase() : e.key];
+  if (dir && state.sel != null) {
+    e.preventDefault();
+    step(dir);
+  }
+});
+
+document.addEventListener('click', (e) => {
+  if (e.target.closest('button, a, input, .band, .detail, .note, .context, .find, .months')) return;
+  zoomOut();
+});
+
+function relayout() {
+  measureCardHeight();
+  layout();
+}
+
+addEventListener('resize', relayout);
+narrow.addEventListener('change', relayout);
+setToday(new Date());
+renderContext();
+applyOpen();
+measureCardHeight();
+</script>
+</body>
+</html>
